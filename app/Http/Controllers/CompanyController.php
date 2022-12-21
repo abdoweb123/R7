@@ -122,6 +122,14 @@ class CompanyController extends Controller
 
 
 
+    /*** show function ***/
+    public function show(Company $company)
+    {
+        return view('companies.show', compact('company'));
+    }
+
+
+
     /*** edit function ***/
     public function edit(Company $company)
     {

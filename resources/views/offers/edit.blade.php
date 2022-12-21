@@ -16,6 +16,8 @@
                 <form action="{{ route('offer.update',$item->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
+                    <input type="hidden" name="job_id" value="{{$job_id}}">
+                    <input type="hidden" name="company_id" value="{{$company_id}}">
                     <div class="row">
                         <div class="col">
                             <label for="image" class="mr-sm-2">الحالة</label>
@@ -36,10 +38,10 @@
                             <select name="accepted" class="form-control">
                                 @if($item->accepted == 1)
                                     <option value="1" selected>مفعل</option>
-                                    <option value="0">غير مفعل</option>
+                                    <option value="2">غير مفعل</option>
                                 @else
                                     <option value="1">مفعل</option>
-                                    <option value="0" selected>غير مفعل</option>
+                                    <option value="2" selected>غير مفعل</option>
                                 @endif
                             </select>
                         </div>

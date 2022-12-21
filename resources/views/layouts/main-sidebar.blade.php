@@ -101,17 +101,17 @@
                         </ul>
                     </li>
 
-                    <li>
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#offers">
-                            <div class="pull-left"><i class="ti-dropbox"></i><span class="right-nav-text">العروض</span></div>
-                            <div class="pull-right"><i class="ti-plus"></i></div>
-                            <div class="clearfix"></div>
-                        </a>
-                        <ul id="offers" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('offers.index')}}">قائمة العروض</a></li>
-                            <li> <a href="{{route('offeredTasks.index')}}">قائمة عروض المهمات</a></li>
-                        </ul>
-                    </li>
+{{--                    <li>--}}
+{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#offers">--}}
+{{--                            <div class="pull-left"><i class="ti-dropbox"></i><span class="right-nav-text">العروض</span></div>--}}
+{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
+{{--                            <div class="clearfix"></div>--}}
+{{--                        </a>--}}
+{{--                        <ul id="offers" class="collapse" data-parent="#sidebarnav">--}}
+{{--                            <li> <a href="{{route('offers.index')}}">قائمة العروض</a></li>--}}
+{{--                            <li> <a href="{{route('offeredTasks.index')}}">قائمة عروض المهمات</a></li>--}}
+{{--                        </ul>--}}
+{{--                    </li>--}}
 
 
 {{--                    <li>--}}

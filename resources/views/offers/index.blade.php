@@ -11,7 +11,7 @@
     .process
     {
         cursor:pointer;
-        background-color:white;
+        background-color: #d4e3f026;
         border-radius:3px;
         border: 1px solid #dddd;
         padding: 5px 3px 0 4px;
@@ -78,13 +78,15 @@
                                     <td>{{ $item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
                                     <td>{{ $item->accepted == 1 ? 'مفعل' : 'غير مفعل'}}</td>
                                     <td>
-                                        <button type="button" class="process"
-                                                data-toggle="modal" data-target="#edit{{ $item->id }}" title="تعديل">
-                                           <i style="color:cadetblue;  font-size:18px;" class="fa fa-edit"></i></button>
+                                        @if(($accepted == 1 &&  $item->accepted == 1) || $accepted == 2)
+                                            <button type="button" class="process"
+                                                    data-toggle="modal" data-target="#edit{{ $item->id }}" title="تعديل">
+                                               <i style="color:cadetblue;  font-size:18px;" class="fa fa-edit"></i></button>
 
-                                        <button type="button" class="process"
-                                                data-toggle="modal" data-target="#delete{{ $item->id }}" title="حذف">
-                                           <i style="color:red;  font-size:18px;" class="fa fa-trash"></i></button>
+                                            <button type="button" class="process"
+                                                    data-toggle="modal" data-target="#delete{{ $item->id }}" title="حذف">
+                                               <i style="color:red;  font-size:18px;" class="fa fa-trash"></i></button>
+                                        @endif
                                     </td>
                                 </tr>
 

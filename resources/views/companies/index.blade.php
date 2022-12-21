@@ -8,6 +8,15 @@
 <style>
     .process{border:none; border-radius:3px; padding:3px 5px;}
     select{padding:10px !important;}
+    .process
+    {
+        cursor:pointer;
+        background-color: #d4e3f026;
+        border-radius:3px;
+        border: 1px solid #dddd;
+        padding: 5px 3px 0 4px;
+        margin-left: 2px;
+    }
 </style>
 
 @endsection
@@ -58,21 +67,7 @@
                                 <th>#</th>
                                 <th>اسم الشركة باللغة العربية</th>
                                 <th>اسم الشركة باللغة الانجليزية</th>
-                                <th>البريد الإلكتروني للشركة</th>
-                                <th>رقم هاتف الشركة</th>
-                                <th>مدينة تواجد الشركة</th>
-                                <th>الاسم الرباعي لممثل الشركة</th>
-                                <th>البريد الإلكتروني لممثل الشركة</th>
                                 <th>صورة شعار الشركة</th>
-                                <th>صورة شكل الشركة</th>
-                                <th>صورة هوية ممثل الشركة</th>
-                                <th>صورة السجل التجاري</th>
-                                <th>صورة الترخيص</th>
-                                <th>صورة الوكالة الشرعية لممثل الشركة</th>
-                                <th>العنوان الوطني</th>
-                                <th>خدمات الشركة</th>
-                                <th>الوظائف التي سيتم الإعلان عنها</th>
-                                <th>صورة العقد بين الشركة وال R7</th>
                                 <th>الحالة</th>
                                 <th>العمليات</th>
                             </tr>
@@ -83,30 +78,19 @@
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $item->getTranslation('company_name', 'ar') }}</td>
                                     <td>{{ $item->getTranslation('company_name', 'en') }}</td>
-                                    <td>{{ $item->company_email }}</td>
-                                    <td>{{ $item->company_phone }}</td>
-                                    <td>{{ $item->city_id }}</td>
-                                    <td>{{ $item->pre_fullName }}</td>
-                                    <td>{{ $item->pre_email }}</td>
                                     <td><img src="{{asset('assets/images/'. $item->logo_image)}}" alt="identity_image" style="width:100px;"></td>
-                                    <td><img src="{{asset('assets/images/'. $item->cover_image)}}" alt="identity_image" style="width:100px;"></td>
-                                    <td><img src="{{asset('assets/images/'. $item->pre_image)}}" alt="identity_image" style="width:100px;"></td>
-                                    <td><img src="{{asset('assets/images/'. $item->commercialRecord_image)}}" alt="identity_image" style="width:100px;"></td>
-                                    <td><img src="{{asset('assets/images/'. $item->licence_image)}}" alt="identity_image" style="width:100px;"></td>
-                                    <td><img src="{{asset('assets/images/'. $item->pre_agent_image)}}" alt="identity_image" style="width:100px;"></td>
-                                    <td>{{ $item->national_address }}</td>
-                                    <td>{{ $item->services }}</td>
-                                    <td>{{ $item->jobs }}</td>
-                                    <td><img src="{{asset('assets/images/'. $item->contract_image)}}" alt="identity_image" style="width:100px;"></td>
+
                                     <td>{{ $item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
                                     <td>
-                                        <a type="button" href="{{route('companies.edit',$item->id)}}" class="process"
-                                           style="cursor:pointer; background-color:darkgoldenrod;">
-                                           <i style="color:white" class="fa fa-edit"></i></a>
+                                        <a type="button" href="{{route('companies.edit',$item->id)}}" class="process">
+                                           <i style="color:cadetblue; font-size:18px;" class="fa fa-edit"></i></a>
 
-                                        <button type="button" class="process" style="cursor:pointer; background-color: lightgray; border-radius:3px;"
-                                                data-toggle="modal" data-target="#delete{{ $item->id }}" title="حذف">
-                                           <i style="color:red" class="fa fa-trash"></i></button>
+                                        <button type="button" class="process"
+                                                data-toggle="modal" data-target="#delete{{ $item->id }}" title="delete">
+                                           <i style="color:red; font-size:18px;" class="fa fa-trash"></i></button>
+
+                                        <a type="button" href="{{route('companies.show',$item->id)}}" class="process">
+                                            <i style="color:goldenrod; font-size:18px;" class="fa fa-eye"></i></a>
                                     </td>
                                 </tr>
 

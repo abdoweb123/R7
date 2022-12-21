@@ -33,7 +33,9 @@
             <div class="card card-statistics h-100">
                 <div class="card-body">
 
-                    @if ($errors->any())
+                    <h6><span style="border-radius: 5px; padding:5px"> <a href="{{route('returnJob',$job_id)}}"><span style="color:#8ea0db;">الوظيفة</span></a> / شروط الوظيفة </span></h6>
+
+                @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
@@ -43,7 +45,9 @@
                         </div>
                     @endif
 
-                    <h6><span style="border-radius: 5px; padding:5px"> <a href="{{route('returnJob',$job_id)}}"><span style="color:#8ea0db;">الوظيفة</span></a> / شروط الوظيفة </span></h6>
+                    <a href="{{route('jobTerms.create',[$job_id, $company_id])}}" class="button x-small">
+                        إضافة شرط للوظيفة
+                    </a>
 
                     @foreach(['danger','warning','success','info'] as $msg)
                         @if(Session::has('alert-'.$msg))
@@ -54,6 +58,7 @@
                     @endforeach
 
                     <br><br>
+
 
                     <div class="table-responsive">
                         <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"

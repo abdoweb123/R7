@@ -30,7 +30,6 @@
         </div>
     @endif
 
-
     @foreach(['danger','warning','success','info'] as $msg)
         @if(Session::has('alert-'.$msg))
             <div class="alert alert-{{$msg}}">
@@ -48,6 +47,8 @@
                     <form action="{{ route('jobTasks.update',$jobTask->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        <input type="hidden" name="job_id" value="{{$jobTask->job_id}}">
+                        <input type="hidden" name="company_id" value="{{$jobTask->company_id}}">
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="mr-sm-2">اسم المهمة باللغة العربية</label>

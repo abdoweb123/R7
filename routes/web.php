@@ -45,7 +45,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::resource('reachedUs','ReachedUsController')->except('show','edit','create');
     Route::resource('specialties','SpecialtyController')->except('show','edit','create');
     Route::resource('users','UserController');
-    Route::resource('companies','CompanyController')->except('show');
+    Route::resource('companies','CompanyController');
 
     Route::resource('jobs','JobController')->except('show');
     Route::get('all/jobs/{job_id}',[JobController::class,'returnJob'])->name('returnJob');
@@ -64,7 +64,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('all/jobTerms/{job_id}/{company_id}',[JobTermsController::class,'index'])->name('jobTerms.index');
 
 
-    Route::get('all/offers',[OfferController::class,'index'])->name('offers.index');
+    Route::get('all/offers/{job_id?}/{company_id?}',[OfferController::class,'index'])->name('offers.index');
     Route::put('update/offers/{id}',[OfferController::class,'update'])->name('offer.update');
     Route::delete('delete/offers/{id}',[OfferController::class,'destroy'])->name('offer.destroy');
 

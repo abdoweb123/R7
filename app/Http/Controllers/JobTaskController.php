@@ -14,7 +14,7 @@ class JobTaskController extends Controller
     /*** index function ***/
     public function index($job_id,$company_id)
     {
-        $data['jobTasks'] = JobTask::where('job_id',$job_id)->paginate(10);
+        $data['jobTasks'] = JobTask::where('job_id',$job_id)->latest()->paginate(10);
         return view('jobTasks.index', compact('data','job_id','company_id'));
     }
 
@@ -71,7 +71,7 @@ class JobTaskController extends Controller
         $jobTask->active = $request['active'];
         $jobTask->update();
 
-        return redirect()->route('jobTasks.index')->with('alert-success','تم تسجيل البيانات بنجاح');
+        return redirect()->route('jobTasks.index',[$request->job_id, $request->company_id, $jobTask->id])->with('alert-success','تم تسجيل البيانات بنجاح');
     }
 
 

@@ -86,8 +86,8 @@
                                 <tr>
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>@isset($item->job->job_description)  {{ $item->job->job_description }} @else لا يوجد @endisset</td>
-                                    <td>@isset($item->company->name)  {{ $item->company->name }} @else لا يوجد @endisset</td>
-                                    <td>@isset($item->user->name)  {{ $item->user->name }} @else _____ @endisset</td>
+                                    <td>@isset($item->company->company_name)  {{ $item->company->company_name }} @else لا يوجد @endisset</td>
+                                    <td>@isset($item->user->full_name)  {{ $item->user->full_name }} @else _____ @endisset</td>
                                     <td>{{$item->getTranslation('name', 'ar')}}</td>
                                     <td>{{$item->getTranslation('name', 'en')}}</td>
                                     <td>{{$item->getTranslation('description', 'ar')}}</td>

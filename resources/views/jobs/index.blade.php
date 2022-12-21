@@ -92,7 +92,7 @@
                                     <td>@isset($item->company->company_name)  {{ $item->company->company_name }} @else لا يوجد @endisset</td>
                                     <td>@isset($item->city->name)  {{ $item->city->name }} @else لا يوجد @endisset</td>
                                     <td>@isset($item->specialty->name)  {{ $item->specialty->name }} @else لا يوجد @endisset</td>
-                                    <td>@isset($item->user->name)  {{ $item->user->name }} @else _____ @endisset</td>
+                                    <td>@isset($item->user->full_name)  {{ $item->user->full_name }} @else _____ @endisset</td>
                                     <td>{{$item->longitude}}</td>
                                     <td>{{$item->latitude}}</td>
                                     <td>{{$item->duration_by_day}}</td>
@@ -137,6 +137,10 @@
 
                                                 <a class="dropdown-item" href="{{route('jobTerms.index',[$item->id, $item->company->id])}}">
                                                     <i class="fa fa-eye" style="color: #cbb175"></i>&nbsp شروط الوظيفة
+                                                </a>
+
+                                                <a class="dropdown-item" href="{{route('offers.index',[$item->id, $item->company->id])}}">
+                                                    <i class="fa fa-eye" style="color: #493d1e"></i>&nbsp العروض المقدمة
                                                 </a>
 
                                             </div>

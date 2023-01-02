@@ -1,7 +1,16 @@
 <?php
 
+use App\Http\Controllers\Api\AdminController;
+use App\Http\Controllers\Api\DeliveryManController;
+use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\JobController;
 use App\Http\Controllers\Api\OfferController;
-use App\Http\Controllers\Api\OfferedTaskController;
+use App\Http\Controllers\Api\OrderUserController;
+use App\Http\Controllers\Api\PublicController;
+use App\Http\Controllers\Api\PublicServic;
+use App\Http\Controllers\Api\ReviewController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,28 +28,44 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::group(['middleware'=>'api', 'namespace'=>'Api'], function () {
-
-
-    Route::group(['prefix'=>'offer'], function ()
-    {
-        Route::post('create/offer',[OfferController::class,'create']);
-        Route::get('get/all/offers',[OfferController::class,'getAllOffers']);
-        Route::get('get/offer/{id}',[OfferController::class,'getOffer']);
-        Route::post('update/offer/{id}',[OfferController::class,'update']);
-        Route::get('delete/offer/{id}',[OfferController::class,'delete']);
-    });
+// user auth
+Route::post('login', [UserController::class,'login']);
+Route::post('forget-pass-user', [UserController::class,'reset_pass']);
+Route::post('verification', [UserController::class,'verification']);
+Route::post('register', [UserController::class,'register']);
+Route::post('register-user-social', [UserController::class,'register_social']);
+Route::post('new-password', [UserController::class,'new_password']);
 
 
-    Route::group(['prefix'=>'offeredTask'], function ()
-    {
-        Route::post('create/offeredTask',[OfferedTaskController::class,'create']);
-        Route::get('get/all/offeredTasks',[OfferedTaskController::class,'getAllOfferedTasks']);
-        Route::get('get/offeredTask/{id}',[OfferedTaskController::class,'getOfferedTask']);
-        Route::post('update/offeredTask/{id}',[OfferedTaskController::class,'update']);
-        Route::get('delete/offeredTask/{id}',[OfferedTaskController::class,'delete']);
-    });
+Route::group(['middleware'=>'auth:api', 'namespace'=>'Api'], function () {
+    Route::post('change_password', [UserController::class,'change_password']);
+    Route::get('profile', [UserController::class,'show']);
+    Route::post('add-favorite', [UserController::class,'add_favorite']);
+    Route::get('get-favorite', [UserController::class,'get_favorite']);
+    Route::post('add-offer', [OfferController::class,'add_offer']);
 
+    // get tasks
+    Route::get('get-tasks', [UserController::class,'get_tasks']);
+    Route::get('wraning', [UserController::class,'wraning']);
 
 }); //end of routes
+
+// public services
+Route::get('countries', [PublicServic::class,'countries']);
+Route::get('cities', [PublicServic::class,'cities']);
+Route::get('specialize', [PublicServic::class,'specialize']);
+Route::get('social-media', [PublicServic::class,'social_media']);
+Route::get('nationality', [PublicServic::class,'nationality']);
+
+// job
+Route::get('jobs', [JobController::class,'jobs']);
+Route::get('best-job', [JobController::class,'best_jobs']);
+Route::get('last-job', [JobController::class,'last_job']);
+Route::get('job-details/{id}', [JobController::class,'job_details']);
+// search
+Route::get('search', [JobController::class,'search']);
+Route::get('filter', [JobController::class,'filter']);
+
+// task jobs
+Route::post('start-task', [TaskController::class,'start_task']);
+Route::post('end-task', [TaskController::class,'end_task']);

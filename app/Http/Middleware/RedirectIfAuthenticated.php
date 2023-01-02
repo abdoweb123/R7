@@ -16,13 +16,13 @@ class RedirectIfAuthenticated
             return redirect(RouteServiceProvider::HOME);
         }
 
-        if (auth('admin')->check()) {
-            return redirect(RouteServiceProvider::ADMIN);
-        }
-//
 //        if (auth('admin')->check()) {
 //            return redirect(RouteServiceProvider::ADMIN);
 //        }
+//
+        if (auth('company')->check()) {
+            return redirect(RouteServiceProvider::COMPANY);
+        }
 //
 //        if (auth('employee')->check()) {
 //            return redirect(RouteServiceProvider::EMPLOYEE);

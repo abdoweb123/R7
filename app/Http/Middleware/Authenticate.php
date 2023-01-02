@@ -19,9 +19,9 @@ class Authenticate extends Middleware
             if (Request::is(app()->getLocale() . '/dashboard')) {
                 return route('login');
             }
-//            elseif(Request::is(app()->getLocale() . '/admin/dashboard')) {
-//                return route('login');
-//            }
+            elseif(Request::is(app()->getLocale() . '/company/dashboard')) {
+                return route('getLoginPage.company');
+            }
 //            elseif(Request::is(app()->getLocale() . '/employee/dashboard')) {
 //                return route('login');
 //            }

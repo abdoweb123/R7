@@ -8,7 +8,7 @@
     <meta name="description" content="Webmin - Bootstrap 4 & Angular 5 Admin Dashboard Template" />
     <meta name="author" content="potenzaglobalsolutions.com" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>تسجيل الدخول</title>
+    <title>تسجيل دخول الشركة</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="images/favicon.ico" />
@@ -48,10 +48,7 @@ login-->
                 <div class="col-lg-4 col-md-6 login-fancy-bg bg"
                      style="background-image: url('{{ asset('assets/images/login-inner-bg.jpg')}}');">
                     <div class="login-fancy">
-                        <h2 class="text-white mb-20 font-weight-bold">وصلة!</h2>
-                        <p class="mb-20 text-white">أسرع شركة توصيل في مصر</p>
-                        <p class="mb-20 text-white">أهلا بكم في تطبيق وصلة لخدمات النقل </p>
-                        <p class="mb-20 text-white">نقدم لكم خدمات النقل بأفضل جودة</p>
+                        <h2 class="text-white mb-20 font-weight-bold">R7</h2>
                         <ul class="list-unstyled  pos-bot pb-30">
                             <li class="list-inline-item"><a class="text-white" href="#"> Terms of Use</a> </li>
                             <li class="list-inline-item"><a class="text-white" href="#"> Privacy Policy</a></li>
@@ -62,7 +59,7 @@ login-->
                     <div class="login-fancy pb-40 clearfix">
                         <h3 style="font-family: 'Cairo', sans-serif" class="mb-30">تسجيل الدخول</h3>
 
-                        <form method="POST" action="{{route('login')}}">
+                        <form method="POST" action="{{route('login.company')}}">
                             @csrf
                             <div class="section-field mb-20">
                                 @foreach(['danger','warning','success','info'] as $msg)
@@ -97,14 +94,13 @@ login-->
                             </div>
 
 
-                            <div class="section-field">
-                                <div class="remember-checkbox mb-30">
-                                    <input type="checkbox" class="form-control" name="two" id="two" />
-                                    <label for="two"> تذكرني</label>
-                                    <a href="#" class="float-right">هل نسيت كلمةالمرور ؟</a>
-{{--                                    <a href="{{route('login.company')}}" class="float-right">تسجيل دخول كشركة</a>--}}
-                                </div>
-                            </div>
+{{--                            <div class="section-field">--}}
+{{--                                <div class="remember-checkbox mb-30">--}}
+{{--                                    <input type="checkbox" class="form-control" name="two" id="two" />--}}
+{{--                                    <label for="two"> تذكرني</label>--}}
+{{--                                    <a href="#" class="float-right">هل نسيت كلمةالمرور ؟</a>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <button class="button"><span>دخول</span><i class="fa fa-check"></i></button>
                         </form>
                     </div>

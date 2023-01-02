@@ -10,6 +10,8 @@ use App\Models\Offer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Traits\CheckApi;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class OfferController extends Controller
 {
@@ -64,6 +66,33 @@ class OfferController extends Controller
         }
     }
 
+    public function add_offer(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'job_id' => 'required',
+        ],[
+            'full_name.required' => 'الوظيفه مطلوبه',
+        ]);
+        $user_id=Auth::id();
+        $offer = Offer::create([
+            'job_id'=>$request->job_id,
+            'user_id'=>$user_id,
+            'message'=>$request->message,
+            'active'=>1,
+            'accepted'=>0,
+        ]);
+        if($offer){
+            $data_json['status']=true;
+            $data_json['message']='تم الاضافه بنجاح';
+            $data_json['data']=$offer;
+            return response()->json($data_json, 200);
+        }else{
+            $data_json['status']=false;
+            $data_json['message']='يوجد شئ ما خطأ';
+            return response()->json($data_json, 200);
+        }
+
+    }
 
 
     /*** getOffer function ***/

@@ -15,6 +15,7 @@ class OfferController extends Controller
     public function index($job_id,$company_id)
     {
         $offers = Offer::where('job_id',$job_id)->latest()->paginate(10);
+        $job = Job::find($job_id)->first();
         $checkAccepted = Offer::where('job_id',$job_id)->select('accepted')->get();
         $numOfAccepted = Offer::where('job_id',$job_id)->count('accepted');
 
@@ -36,9 +37,31 @@ class OfferController extends Controller
             $accepted = 2;
         }
 
-        return view('offers.index', compact('offers','job_id','company_id','accepted'));
+        return view('offers.index', compact('offers','job_id','company_id','accepted','job'));
 
 
+    }
+    public function accept_offer($id)
+    {
+        if($id){
+            $data=Offer::find($id);
+            $data->accepted=1;
+            $data->save();
+
+            $data_job=Job::with('jobTasks')->find($data->job_id);
+            $data_job->user_id=$data->user_id;
+            $data_job->save();
+
+            if($data_job->jobTasks){
+                foreach ($data_job->jobTasks as $job_task) {
+                    $task=JobTask::find($job_task->id);
+                    $task->user_id=$data->user_id;
+                    $task->save();
+                }
+            }
+        }
+
+        return back();
     }
 
 

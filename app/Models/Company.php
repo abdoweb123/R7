@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Translatable\HasTranslations;
 
-class Company extends Model
+class Company extends Authenticatable
 {
     use HasFactory , SoftDeletes , HasTranslations;
 
     public $translatable = ['company_name'];
 
-    protected $fillable = ['company_name', 'company_email', 'company_phone', 'city_id', 'pre_fullName',
+    protected $fillable = ['company_name', 'company_email', 'password', 'company_phone', 'city_id', 'pre_fullName',
                             'pre_email', 'pre_image', 'commercialRecord_image', 'licence_image', 'active',
                             'pre_agent_image', 'national_address', 'services', 'jobs', 'contract_image',
                             'logo_image', 'cover_image'];

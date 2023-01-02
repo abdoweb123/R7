@@ -8,6 +8,7 @@
 <style>
     /*.process{border:none; border-radius:3px; padding:3px 5px;}*/
      select{padding:10px !important;}
+     .table-responsive{overflow-x:visible !important;}
     /*.process*/
     /*{*/
     /*    cursor:pointer;*/
@@ -69,18 +70,8 @@
                                 <th>اسم المدينة</th>
                                 <th>اسم التخصص</th>
                                 <th>اسم الموظف</th>
-                                <th>خطوط الطول</th>
-                                <th>خطوط العرض</th>
-                                <th>وقت التنفيذ</th>
-                                <th>أقل تكلفة</th>
-                                <th>أكبر تكلفة</th>
-                                <th>نوع الوظيفة</th>
-                                <th>طريقة الدفع</th>
-                                <th>وصف الوظيفة</th>
                                 <th>تاريخ البداية</th>
                                 <th>تاريخ النهاية</th>
-                                <th>بدأ</th>
-                                <th>انتهى</th>
                                 <th>الحالة</th>
                                 <th>العمليات</th>
                             </tr>
@@ -93,32 +84,20 @@
                                     <td>@isset($item->city->name)  {{ $item->city->name }} @else لا يوجد @endisset</td>
                                     <td>@isset($item->specialty->name)  {{ $item->specialty->name }} @else لا يوجد @endisset</td>
                                     <td>@isset($item->user->full_name)  {{ $item->user->full_name }} @else _____ @endisset</td>
-                                    <td>{{$item->longitude}}</td>
-                                    <td>{{$item->latitude}}</td>
-                                    <td>{{$item->duration_by_day}}</td>
-                                    <td>{{$item->minimum_cost}}</td>
-                                    <td>{{$item->maximum_cost}}</td>
-                                    <td>{{$item->job_type == 1 ? 'دوام جزئي' : 'دوام كلي'}}</td>
-                                    <td>{{$item->payment_type == 1 ? 'اليوم' : 'المهمة'}}</td>
-                                    <td>{{$item->job_description}}</td>
                                     <td>{{$item->start_time}}</td>
                                     <td>{{$item->end_time}}</td>
-                                    <td>{{$item->started == true ? 'تم' : '___'}}</td>
-                                    <td>{{$item->finished == true ? 'تم' : '___'}}</td>
                                     <td>{{ $item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
                                     <td>
-{{--                                        <a href="{{route('jobs.edit',$item->id)}}" class="process">--}}
-{{--                                           <i style="color:cadetblue; font-size:18px;" class="fa fa-edit"></i></a>--}}
-
-{{--                                        <button type="button" class="process" data-toggle="modal" data-target="#delete{{ $item->id }}" title="حذف">--}}
-{{--                                           <i style="color:red; font-size:18px;" class="fa fa-trash"></i></button>--}}
-
                                         <div class="dropdown show">
                                             <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 العمليات
                                             </a>
 
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <a class="dropdown-item" href="{{route('jobs.show',$item->id)}}">
+                                                    <i class="fa fa-eye" style="color: #4d3f15"></i>&nbsp عرض بيانات الوظيفة
+                                                </a>
+
                                                 <a class="dropdown-item" href="{{route('jobs.edit',$item->id)}}">
                                                     <i class="fa fa-edit" style="color: #ffc107"></i>&nbsp تعديل بيانات الوظيفة
                                                 </a>

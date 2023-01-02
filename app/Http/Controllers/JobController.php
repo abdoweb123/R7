@@ -75,6 +75,14 @@ class JobController extends Controller
 
 
 
+    /*** edit function ***/
+    public function show(Job $job)
+    {
+        return view('jobs.show', compact('job'));
+    }
+
+
+
 
     /*** update function ***/
     public function update(JobRequest $request, Job $job)

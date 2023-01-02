@@ -64,6 +64,10 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col">
+                                <label class="mr-sm-2">كلمة المرور</label>
+                                <input type="password" name="company_password" value="{{old('company_password', $company->company_password)}}" class="form-control">
+                            </div>
+                            <div class="col">
                                 <label class="mr-sm-2">صورة شعار الشركة</label>
                                 <input type="file" name="logo_image" value="{{old('logo_image')}}" class="form-control">
                             </div>
@@ -71,13 +75,13 @@
                                 <label class="mr-sm-2">صورة شكل الشركة</label>
                                 <input type="file" name="cover_image" value="{{old('cover_image')}}" class="form-control">
                             </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <div class="col">
                                 <label class="mr-sm-2">رقم هاتف الشركة</label>
                                 <input type="text" name="company_phone" value="{{old('company_phone', $company->company_phone)}}" class="form-control">
                             </div>
-                        </div>
-
-                        <div class="row mb-3">
                             <div class="col">
                                 <label class="mr-sm-2">مدينة تواجد الشركة</label>
                                 <select name="city_id" class="form-control">
@@ -91,13 +95,13 @@
                                 <label class="mr-sm-2">الاسم الرباعي لممثل الشركة</label>
                                 <input type="text" name="pre_fullName" value="{{old('pre_fullName', $company->pre_fullName)}}" class="form-control">
                             </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <div class="col">
                                 <label class="mr-sm-2">البريد الإلكتروني لممثل الشركة</label>
                                 <input type="email" name="pre_email" value="{{old('pre_email', $company->pre_email)}}" class="form-control">
                             </div>
-                        </div>
-
-                        <div class="row mb-3">
                             <div class="col">
                                 <label class="mr-sm-2">صورة هوية ممثل الشركة</label>
                                 <input type="file" name="pre_image" value="{{old('pre_image')}}" class="form-control">
@@ -106,13 +110,13 @@
                                 <label class="mr-sm-2">صورة السجل التجاري</label>
                                 <input type="file" name="commercialRecord_image" value="{{old('commercialRecord_image')}}" class="form-control">
                             </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <div class="col">
                                 <label class="mr-sm-2">صورة الترخيص</label>
                                 <input type="file" name="licence_image" value="{{old('licence_image')}}" class="form-control">
                             </div>
-                        </div>
-
-                        <div class="row mb-3">
                             <div class="col">
                                 <label class="mr-sm-2">صورة الوكالة الشرعية لممثل الشركة</label>
                                 <input type="file" name="pre_agent_image" value="{{old('pre_agent_image')}}" class="form-control">
@@ -121,13 +125,13 @@
                                 <label class="mr-sm-2">العنوان الوطني</label>
                                 <input type="text" name="national_address" value="{{old('national_address', $company->national_address)}}" class="form-control">
                             </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <div class="col">
                                 <label class="mr-sm-2">خدمات الشركة</label>
                                 <input type="text" name="services" value="{{old('services', $company->services)}}" class="form-control">
                             </div>
-                        </div>
-
-                        <div class="row mb-3">
                             <div class="col">
                                 <label class="mr-sm-2">الوظائف التي سيتم الإعلان عنها</label>
                                 <input type="text" name="jobs" value="{{old('jobs', $company->jobs)}}" class="form-control">
@@ -136,6 +140,8 @@
                                 <label class="mr-sm-2">صورة العقد بين الشركة وال R7</label>
                                 <input type="file" name="contract_image" value="{{old('contract_image', $company->contract_image)}}" class="form-control">
                             </div>
+                        </div>
+                        <div class="row mb-3">
                             <div class="col">
                                 <label for="image" class="mr-sm-2">الحالة</label>
                                 <select name="active" class="form-control">
@@ -149,7 +155,6 @@
                                 </select>
                             </div>
                         </div>
-
                         <br><br>
 
                         <div class="modal-footer">

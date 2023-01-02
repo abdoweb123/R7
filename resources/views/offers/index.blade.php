@@ -17,6 +17,7 @@
         padding: 5px 3px 0 4px;
         margin-left: 2px;
     }
+    p{font-weight:bold}
 </style>
 
 @endsection
@@ -53,6 +54,37 @@
                         @endif
                     @endforeach
 
+
+                    <div class="row">
+                        <div class="col">
+                             <img style="border-radius: 5px; width: 160px;  height: 160px" src="{{asset('assets/images/'.$job->user->profile_image)}}" alt="الصورة الشخصية">
+                        </div>
+
+                        <div class="col">
+                            <h5>{{$job->user->full_name}}</h5>
+                            <br>
+                            <p>  رقم الهاتف :   &nbsp;&nbsp;&nbsp;<span>{{$job->user->phone}}</span></p>
+                            <p>  البريد الإلكتروني :  &nbsp;&nbsp;&nbsp;<span>{{$job->user->email}}</span></p>
+                            <p>  المدينة :  &nbsp;&nbsp;&nbsp;<span>{{$job->user->city->name}}</span></p>
+                        </div>
+
+                        <div class="col">
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="col-xl-12 mb-30">
+            <div class="card card-statistics h-100">
+                <div class="card-body">
+
                     <br><br>
 
                     <div class="table-responsive">
@@ -76,7 +108,10 @@
                                     <td>{{ $item->job->job_description }}</td>
                                     <td><a href="{{route('users.show',$item->user_id)}}" style="color:#e30000">{{ $item->user->full_name }}</a></td>
                                     <td>{{ $item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
-                                    <td>{{ $item->accepted == 1 ? 'مفعل' : 'غير مفعل'}}</td>
+                                    {{-- <td>{{ $item->accepted == 1 ? 'مفعل' : 'غير مفعل'}}</td> --}}
+                                    <td>
+                                        <a href="{{ url('accept-offer/'.$item->id) }}" class="btn btn-primary">قبول</a>
+                                    </td>
                                     <td>
                                         @if(($accepted == 1 &&  $item->accepted == 1) || $accepted == 2)
                                             <button type="button" class="process"

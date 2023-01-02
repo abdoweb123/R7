@@ -136,7 +136,7 @@
                                 class="badge badge-info">6</span> </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#"><i class="text-info ti-settings"></i>Settings</a>
-                        <form method="GET" action="{{ route('logout') }}">
+                        <form method="GET" action="{{ route('logout.company') }}">
                             @csrf
                             <a class="dropdown-item" href="#" onclick="event.preventDefault();this.closest('form').submit();"><i class="bx bx-log-out"></i>تسجيل الخروج</a>
                         </form>

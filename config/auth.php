@@ -42,16 +42,22 @@ return [
         ],
 
 
-        'deliveryMan' => [
-            'driver' => 'session',
-            'provider' => 'delivery_men',
-        ],
+//        'deliveryMan' => [
+//            'driver' => 'session',
+//            'provider' => 'delivery_men',
+//        ],
+//
+//
+//        'admin' => [
+//            'driver' => 'session',
+//            'provider' => 'admins',
+//        ],
+//
 
-
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-        ],
+        'company' => [
+                    'driver' => 'session',
+                    'provider' => 'companies',
+                ],
 
 
         'api-user' => [
@@ -59,6 +65,7 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
 
 
         'api-admin' => [
@@ -72,6 +79,7 @@ return [
             'provider' => 'delivery_men',
             'hash' => false,
         ],
+
 
 
     ],
@@ -100,21 +108,26 @@ return [
         ],
 
 
-        'delivery_men' => [
+//        'delivery_men' => [
+//            'driver' => 'eloquent',
+//            'model' => App\Models\DeliveryMan::class,
+//        ],
+//
+//
+//        'admins' => [
+//            'driver' => 'eloquent',
+//            'model' => App\Models\Admin::class,
+//        ],
+
+
+
+
+        'companies' => [
             'driver' => 'eloquent',
-            'model' => App\Models\DeliveryMan::class,
+            'model' => App\Models\Company::class,
         ],
 
 
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
-        ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

@@ -1,25 +1,49 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Api;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\City;
+use App\Models\City as ModelsCity;
+use App\Models\Nationality;
+use App\Models\ReachedUs;
+use App\Models\Specialty;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory , SoftDeletes;
+    use HasApiTokens,Notifiable;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = ['country_id', 'phone', 'profile_image', 'full_name', 'nationality_id',
-                            'gender', 'birthDate', 'email', 'id_number', 'identity_image',
-                            'relative_phone', 'city_id', 'area', 'workingArea_id', 'health_insurance',
-                            'antecedents', 'reachedUs_id', 'arabic_video_url', 'english_video_url',
-                            'active', 'specialty_id'
-                          ];
+    'gender', 'birthDate', 'email', 'id_number', 'identity_image',
+    'relative_phone', 'city_id', 'area', 'workingArea_id', 'health_insurance',
+    'antecedents', 'reachedUs_id', 'arabic_video_url', 'english_video_url','password',
+    'active', 'specialty_id'
+  ];
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
-
-    /*** start relations ***/
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 
     public function country()
     {
@@ -35,13 +59,13 @@ class User extends Authenticatable
 
     public function city()
     {
-        return $this->belongsTo(City::class,'city_id');
+        return $this->belongsTo(ModelsCity::class,'city_id');
     }
 
 
     public function workingArea()
     {
-        return $this->belongsTo(City::class,'workingArea_id');
+        return $this->belongsTo(ModelsCity::class,'workingArea_id');
     }
 
 
@@ -79,9 +103,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(OfferedTask::class,'user_id');
     }
-
-    /*** end relations ***/
-
-
-
-} //end of class
+}

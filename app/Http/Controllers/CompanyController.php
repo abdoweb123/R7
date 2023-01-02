@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyStoreRequest;
 use App\Http\Requests\CompanyUpdateRequest;
+use App\Http\Requests\LoginRequest;
 use App\Models\City;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class CompanyController extends Controller
 {
@@ -99,6 +102,7 @@ class CompanyController extends Controller
         $company = new Company();
         $company->company_name = ['en' => $request->company_name_en, 'ar' => $request->company_name_ar];
         $company->company_email = $request->company_email;
+        $company->company_password = Hash::make($request['company_password']);
         $company->company_phone = $request->company_phone;
         $company->city_id = $request->city_id;
         $company->pre_fullName = $request->pre_fullName;
@@ -113,7 +117,7 @@ class CompanyController extends Controller
         $company->services = $request->services;
         $company->jobs = $request->jobs;
         $company->contract_image = $date['contract_image'];
-        $company->active = $request->active;
+        $company->active = 1;
         $company->save();
 
 
@@ -279,6 +283,12 @@ class CompanyController extends Controller
 
         $company->company_name = ['en' => $request->company_name_en, 'ar' => $request->company_name_ar];
         $company->company_email = $request->company_email;
+
+        if ($request->company_password !== $company->company_password)
+        {
+            $company->company_password = Hash::make($request['company_password']);
+        }
+
         $company->company_phone = $request->company_phone;
         $company->city_id = $request->city_id;
         $company->pre_fullName = $request->pre_fullName;
@@ -291,6 +301,53 @@ class CompanyController extends Controller
 
         return redirect()->route('companies.index')->with('alert-success','تم تعديل البيانات بنجاح');
     }
+
+
+
+
+    /*** showLoginForm for admins ***/
+    public function getLoginPage()
+    {
+        return view('companies.login');
+    }
+
+
+
+    /***  Dashboard for company ***/
+    public function companyDashboard()
+    {
+        return view('dashboard');
+    }
+
+
+
+    /*** login for admins ***/
+    public function login(LoginRequest $request){
+
+        if (Auth::guard('company')->attempt(['company_email' => $request->email, 'password' => $request->password])) {
+
+            return redirect()->intended('company/dashboard');
+        }
+        else{
+            return redirect()->back()->withInput(['email','password'])->with('alert-danger', 'يوجد خطا في كلمة المرور او اسم المستخدم أو النوع');
+        }
+
+    }
+
+
+
+    /*** logout for admins ***/
+    public function logout(Request $request)
+    {
+        Auth::guard('company')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('getLoginPage.company');
+    }
+
 
 
 

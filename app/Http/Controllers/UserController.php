@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\City;
+use App\Models\Company;
 use App\Models\Country;
 use App\Models\Nationality;
 use App\Models\ReachedUs;
 use App\Models\Specialty;
 use App\Models\User;
+use App\Models\Wraning;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -19,7 +21,8 @@ class UserController extends Controller
     public function index()
     {
         $data['users'] = User::latest()->paginate(10);
-        return view('users.index', compact('data'));
+        $companies=Company::select('id','company_name')->get();
+        return view('users.index', compact('data','companies'));
     }
 
 
@@ -37,6 +40,18 @@ class UserController extends Controller
         return view('users.create', compact('data'));
     }
 
+    public function add_wraning(Request $request)
+    {
+        $request->validate([
+            'company_id'=>'required|integer'
+        ]);
+        $data=new Wraning();
+        $data->user_id=$request->user_id;
+        $data->company_id=$request->company_id;
+        $data->message=$request->message;
+        $data->save();
+        return redirect()->route('users.index')->with('alert-success','تم تسجيل التحذير بنجاح');
+    }
 
 
 

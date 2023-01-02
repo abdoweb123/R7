@@ -36,7 +36,7 @@ Auth::routes();
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function(){
 
 
-    Route::get('', function (){ return view('dashboard'); });
+    Route::get('', function (){ return view('auth.login'); });
 
 
     Route::resource('countries','CountryController')->except('show','edit','create');
@@ -45,9 +45,19 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::resource('reachedUs','ReachedUsController')->except('show','edit','create');
     Route::resource('specialties','SpecialtyController')->except('show','edit','create');
     Route::resource('users','UserController');
-    Route::resource('companies','CompanyController');
+    Route::post('add-wraning','UserController@add_wraning')->name('add-wraning');
 
-    Route::resource('jobs','JobController')->except('show');
+
+    // company
+    Route::resource('companies','CompanyController');
+    Route::get('company/login/page', [CompanyController::class, 'getLoginPage'])->name('getLoginPage.company');
+    Route::post('company/login', [CompanyController::class, 'login'])->name('login.company');
+    Route::get('company/logout', [CompanyController::class, 'logout'])->name('logout.company');
+    Route::get('company/dashboard', [CompanyController::class, 'companyDashboard'])->name('companyDashboard');
+
+
+    // jobs
+    Route::resource('jobs','JobController');
     Route::get('all/jobs/{job_id}',[JobController::class,'returnJob'])->name('returnJob');
 
     Route::resource('jobTasks','JobTaskController')->except('show','index');
@@ -67,9 +77,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('all/offers/{job_id?}/{company_id?}',[OfferController::class,'index'])->name('offers.index');
     Route::put('update/offers/{id}',[OfferController::class,'update'])->name('offer.update');
     Route::delete('delete/offers/{id}',[OfferController::class,'destroy'])->name('offer.destroy');
+    Route::get('accept-offer/{id}',[OfferController::class,'accept_offer']);
 
     Route::get('all/offeredTasks',[OfferedTaskController::class,'index'])->name('offeredTasks.index');
     Route::put('update/offeredTask/{id}',[OfferedTaskController::class,'update'])->name('offeredTask.update');
     Route::delete('delete/offeredTasks/{id}',[OfferedTaskController::class,'destroy'])->name('offeredTask.destroy');
+
+
 }); //end of routes
 

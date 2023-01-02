@@ -13,7 +13,7 @@ class JobTask extends Model
 
     public $translatable = ['name', 'description'];
 
-    protected $fillable = ['job_id', 'company_id', 'user_id', 'name', 'description', 'started', 'finished', 'active'];
+    protected $fillable = ['job_id', 'company_id', 'user_id', 'name', 'description', 'started', 'finished', 'active','lat_start','long_start','date_start'];
 
 
 

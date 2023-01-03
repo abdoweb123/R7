@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JobTaskRequest;
 use App\Http\Requests\OfferRequest;
+use App\Models\Announcement;
 use App\Models\Job;
 use App\Models\JobTask;
 use App\Models\Offer;
@@ -14,7 +16,11 @@ class OfferController extends Controller
     /*** index function ***/
     public function index($job_id,$company_id)
     {
-        $offers = Offer::where('job_id',$job_id)->latest()->paginate(10);
+        $offers = Offer::where('job_id',$job_id)->get();
+        $tasks = JobTask::where('job_id',$job_id)->get();
+        $rewards = Announcement::where('job_id',$job_id)->where('type',1)->get();
+        $warnings = Announcement::where('job_id',$job_id)->where('type',2)->get();
+
         $job = Job::find($job_id)->first();
         $checkAccepted = Offer::where('job_id',$job_id)->select('accepted')->get();
         $numOfAccepted = Offer::where('job_id',$job_id)->count('accepted');
@@ -37,10 +43,12 @@ class OfferController extends Controller
             $accepted = 2;
         }
 
-        return view('offers.index', compact('offers','job_id','company_id','accepted','job'));
-
-
+        return view('offers.index', compact('offers','job_id','company_id','accepted','job','rewards','warnings','tasks'));
     }
+
+
+
+
     public function accept_offer($id)
     {
         if($id){
@@ -73,7 +81,6 @@ class OfferController extends Controller
         $offer->active = $request->active;
         $offer->accepted = $request->accepted;
         $offer->update();
-
 
         if ($request->accepted == 1)
         {
@@ -114,6 +121,26 @@ class OfferController extends Controller
         }
 
         return redirect()->route('offers.index',[$request->job_id, $request->company_id])->with('alert-info','تم تحديث البيانات بنجاح');
+    }
+
+
+
+
+    /*** store function ***/
+    public function makeJobTaskFromOffer(JobTaskRequest $request)
+    {
+        $jobTask = new JobTask();
+        $jobTask->job_id = $request['job_id'];
+        $jobTask->company_id = $request['company_id'];
+        $jobTask->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+        $jobTask->description = ['en' => $request->description_en, 'ar' => $request->description_ar];
+        $jobTask->user_id = null;
+        $jobTask->started = false;
+        $jobTask->finished =false;
+        $jobTask->active = true;
+        $jobTask->save();
+
+        return redirect()->back()->with('alert-success','تم تسجيل البيانات بنجاح');
     }
 
 

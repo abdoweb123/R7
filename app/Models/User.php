@@ -80,6 +80,12 @@ class User extends Authenticatable
         return $this->hasMany(OfferedTask::class,'user_id');
     }
 
+
+    public function announcements()
+    {
+        return $this->hasMany(Announcement::class,'user_id');
+    }
+
     /*** end relations ***/
 
 

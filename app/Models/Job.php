@@ -72,6 +72,11 @@ class Job extends Model
     }
 
 
+    public function announcements()
+    {
+        return $this->hasMany(Announcement::class,'job_id');
+    }
+
     /*** end relations ***/
 
 

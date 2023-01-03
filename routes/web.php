@@ -17,6 +17,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobTaskController;
 use App\Http\Controllers\JobRequirementController;
 use App\Http\Controllers\JobTermsController;
+use App\Http\Controllers\AnnouncementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,10 +79,16 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::put('update/offers/{id}',[OfferController::class,'update'])->name('offer.update');
     Route::delete('delete/offers/{id}',[OfferController::class,'destroy'])->name('offer.destroy');
     Route::get('accept-offer/{id}',[OfferController::class,'accept_offer']);
+    Route::post('make/jobTask/from/offers/page',[OfferController::class,'makeJobTaskFromOffer'])->name('makeJobTaskFromOffer');
 
     Route::get('all/offeredTasks',[OfferedTaskController::class,'index'])->name('offeredTasks.index');
     Route::put('update/offeredTask/{id}',[OfferedTaskController::class,'update'])->name('offeredTask.update');
     Route::delete('delete/offeredTasks/{id}',[OfferedTaskController::class,'destroy'])->name('offeredTask.destroy');
+
+
+    // announcements (reward , warning)
+    Route::resource('announcements','AnnouncementController');
+
 
 
 }); //end of routes

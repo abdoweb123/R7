@@ -91,7 +91,6 @@ class JobController extends Controller
             'company_id'=>$request['company_id'],
             'city_id'=>$request['city_id'],
             'specialization_id'=>$request['specialization_id'],
-            'user_id'=>null,
             'latitude'=>$request['latitude'],
             'longitude'=>$request['longitude'],
             'duration_by_day'=>$request['duration_by_day'],

@@ -27,7 +27,7 @@
                         <br><br>
 
                         <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
-                            {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
+                            {{ $showForm == true ? 'عرض الكل ' : 'اضافه ' . $tittle }}
                             </button>
 @if ($showForm == true)
     <livewire:training-courses.edit >

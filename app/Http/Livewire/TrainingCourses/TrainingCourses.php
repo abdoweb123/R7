@@ -18,7 +18,7 @@ class TrainingCourses extends Component
     ];
     public function mount()
     {
-        $this->tittle ='TrainingCourses';
+        $this->tittle ='دورات تدريبيه';
         $this->showForm=false;
     }
     public function render()

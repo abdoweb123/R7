@@ -19,6 +19,7 @@ use App\Http\Controllers\JobRequirementController;
 use App\Http\Controllers\JobTermsController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Livewire\Users\Details;
+use App\Http\Livewire\TrainingCourses\TrainingCourses;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -91,6 +92,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
     // user details
     Route::get('user-details/{user_id}',Details::class)->name('offeredTasks.index');
+    // 
+    Route::get('traning-course',TrainingCourses::class)->name('traning-course');
 
 
 }); //end of routes

@@ -8,7 +8,7 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use App\Models\TrainingCourse;
-use App\Models\Driver;
+use App\Models\Company;
 use Livewire\Component;
 
 class Edit extends Component
@@ -22,8 +22,8 @@ class Edit extends Component
     ];
     public function render()
     {
-        $drivers=Driver::select('id','name')->get();
-        return view('livewire.training-courses.edit',compact('drivers'))->extends('layouts.master');
+        $companies=Company::select('id','company_name')->get();
+        return view('livewire.training-courses.edit',compact('companies'))->extends('layouts.master');
     }
 
     public function store_update()
@@ -34,8 +34,6 @@ class Edit extends Component
             'provided_by_type'=>'required',
             'provided_by'=>'required',
             'total_cost'=>'required',
-            'employee_cost'=>'required',
-            'company_cost'=>'required',
         ]);
         if($this->ids != null){
             $data=TrainingCourse::find($this->ids);

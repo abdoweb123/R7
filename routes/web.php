@@ -18,7 +18,7 @@ use App\Http\Controllers\JobTaskController;
 use App\Http\Controllers\JobRequirementController;
 use App\Http\Controllers\JobTermsController;
 use App\Http\Controllers\AnnouncementController;
-
+use App\Http\Livewire\Users\Details;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,12 +40,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('', function (){ return view('auth.login'); });
 
 
-    Route::resource('countries','CountryController')->except('show','edit','create');
-    Route::resource('nationalities','NationalityController')->except('show','edit','create');
+    Route::resource('countries',CountryController::class)->except('show','edit','create');
+    Route::resource('nationalities',NationalityController::class)->except('show','edit','create');
     Route::resource('cities','CityController')->except('show','edit','create');
     Route::resource('reachedUs','ReachedUsController')->except('show','edit','create');
     Route::resource('specialties','SpecialtyController')->except('show','edit','create');
-    Route::resource('users','UserController');
+    Route::resource('users',UserController::class);
     Route::post('add-wraning','UserController@add_wraning')->name('add-wraning');
 
 
@@ -58,7 +58,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
 
     // jobs
-    Route::resource('jobs','JobController');
+    Route::resource('jobs',JobController::class);
     Route::get('all/jobs/{job_id}',[JobController::class,'returnJob'])->name('returnJob');
 
     Route::resource('jobTasks','JobTaskController')->except('show','index');
@@ -89,6 +89,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     // announcements (reward , warning)
     Route::resource('announcements','AnnouncementController');
 
+    // user details
+    Route::get('user-details/{user_id}',Details::class)->name('offeredTasks.index');
 
 
 }); //end of routes

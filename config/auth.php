@@ -48,10 +48,10 @@ return [
 //        ],
 //
 //
-//        'admin' => [
-//            'driver' => 'session',
-//            'provider' => 'admins',
-//        ],
+       'admin' => [
+           'driver' => 'session',
+           'provider' => 'admins',
+       ],
 //
 
         'company' => [
@@ -66,7 +66,7 @@ return [
             'hash' => false,
         ],
 
-
+ 
 
         'api-admin' => [
             'driver' => 'jwt',
@@ -114,10 +114,10 @@ return [
 //        ],
 //
 //
-//        'admins' => [
-//            'driver' => 'eloquent',
-//            'model' => App\Models\Admin::class,
-//        ],
+       'admins' => [
+           'driver' => 'eloquent',
+           'model' => App\Models\Admin::class,
+       ],
 
 
 

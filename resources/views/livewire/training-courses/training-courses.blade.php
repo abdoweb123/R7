@@ -59,7 +59,7 @@
                                             <td>{{ @$result->content }}</td>
                                             <td>{{ @$result->provided_by }}</td>
                                             <td>{{ @$result->provided_by_type }}</td>
-                                            <td>{{ @$result->company_name }}</td>
+                                            <td>{{ @$result->compnay->company_name }}</td>
                                             <td>{{ @$result->start_date }}</td>
                                             <td>{{ @$result->end_date }}</td>
                                             <td>{{ @$result->total_cost }}</td>

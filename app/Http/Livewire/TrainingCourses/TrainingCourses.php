@@ -23,7 +23,7 @@ class TrainingCourses extends Component
     }
     public function render()
     {
-        $results=TrainingCourse::paginate();
+        $results=TrainingCourse::with('compnay')->paginate();
         return view('livewire.training-courses.training-courses',[
             'results'=>$results,
         ])->extends('layouts.master');

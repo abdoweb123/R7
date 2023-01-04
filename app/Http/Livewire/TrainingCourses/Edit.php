@@ -14,7 +14,7 @@ use Livewire\Component;
 class Edit extends Component
 {
     use WithFileUploads;
-    public $ids,$name,$content,$company_id,$provided_by_type,$start_date,$provided_by,$total_cost,$employee_cost,$company_cost,$app_cost;
+    public $ids,$name,$content,$company_id,$provided_by_type,$start_date,$end_date,$provided_by,$total_cost,$employee_cost,$company_cost,$app_cost;
    
     public $showIndex,$showForm;
     protected $listeners=[
@@ -49,6 +49,8 @@ class Edit extends Component
         $data->employee_cost=$this->employee_cost;
         $data->company_cost=$this->company_cost;
         $data->app_cost=$this->app_cost;
+        $data->start_date=$this->start_date;
+        $data->end_date=$this->end_date;
         $check=$data->save();
 
         if ($check) {
@@ -67,6 +69,8 @@ class Edit extends Component
         $this->total_cost=$edit_object['total_cost'];
         $this->employee_cost=$edit_object['employee_cost'];
         $this->company_cost=$edit_object['company_cost'];
+        $this->start_date=$edit_object['start_date'];
+        $this->end_date=$edit_object['end_date'];
     }
 
     public function resetInput()
@@ -79,5 +83,7 @@ class Edit extends Component
         $this->total_cost=null;
         $this->employee_cost=null;
         $this->company_cost=null;
+        $this->start_date=null;
+        $this->end_date=null;
     }
 }

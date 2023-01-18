@@ -14,7 +14,7 @@ class PublicServic extends Controller
 {
     public function countries()
     {
-        $select_country=['id','name','active'];
+        $select_country=['id','name','active','image','code'];
         $err_message='لا يوجد بيانات';
         if(request()->header('lang') == 'en' ){
             // $select_country=['id','name_en as name','active'];

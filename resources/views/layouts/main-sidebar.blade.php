@@ -8,18 +8,26 @@
                     <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">لوحة التحكم</li>
 
                     <li>
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#countries">
-                            <div class="pull-left"><i class="ti-home"></i><span class="right-nav-text">الدول</span>
-                            </div>
-                            <div class="pull-right"><i class="ti-plus"></i></div>
-                            <div class="clearfix"></div>
-                        </a>
-                        <ul id="countries" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('countries.index')}}">قائمة الدول</a></li>
-                        </ul>
+                        @if (auth()->guard('company')->user()->role_id == 1)
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#countries">
+                                <div class="pull-left"><i class="ti-home"></i><span class="right-nav-text">الداتا بيز</span>
+                                </div>
+                                <div class="pull-right"><i class="ti-plus"></i></div>
+                                <div class="clearfix"></div>
+                            </a>
+                            <ul id="countries" class="collapse" data-parent="#sidebarnav">
+                                <li> <a href="{{route('countries.index')}}"><i class="fas fa-globe-europe"></i> قائمة الدول</a></li>
+                                <li> <a href="{{route('cities.index')}}"><i class="fas fa-globe"></i> قائمة المدن</a></li>
+                                <li> <a href="{{route('nationalities.index')}}"> <i class="fas fa-globe-asia"></i>قائمة الجنسيات</a> </li>
+                                <li> <a href="{{route('specialties.index')}}"><i class="fas fa-sort-numeric-up"></i> قائمة التخصصات</a> </li>
+                                <li> <a href="{{route('reachedUs.index')}}" ><i class="fab fa-facebook-f"></i> قائمة وسائل التواصل</a> </li>
+                                <li> <a href="{{route('companies.index')}}"><i class="fas fa-industry"></i> قائمة الشركات</a></li>
+                                <li> <a href="{{route('polices')}}"><i class="fas fa-industry"></i> سياسه الخصوصيه </a></li>
+                            </ul>
+                        @endif
                     </li>
 
-                    <li>
+                    {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#nationalities">
                             <div class="pull-left"><i class="ti-palette"></i><span class="right-nav-text">الجنسيات</span>
                             </div>
@@ -27,11 +35,10 @@
                             <div class="clearfix"></div>
                         </a>
                         <ul id="nationalities" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('nationalities.index')}}">قائمة الجنسيات</a> </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
-                    <li>
+                    {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#cities">
                             <div class="pull-left"><i class="ti-calendar"></i><span class="right-nav-text">المدن</span>
                             </div>
@@ -41,9 +48,9 @@
                         <ul id="cities" class="collapse" data-parent="#sidebarnav">
                             <li> <a href="{{route('cities.index')}}">قائمة المدن</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
 
-
+{{-- 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#specialties">
                             <div class="pull-left"><i class="ti-menu-alt"></i><span class="right-nav-text">التخصصات</span></div>
@@ -51,53 +58,75 @@
                             <div class="clearfix"></div>
                         </a>
                         <ul id="specialties" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('specialties.index')}}">قائمة التخصصات</a> </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
 
-                    <li>
+                    {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#reachedUs">
                             <div class="pull-left"><i class="ti-file"></i><span class="right-nav-text">وسائل التواصل</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="reachedUs" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('reachedUs.index')}}">قائمة وسائل التواصل</a> </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#users">
-                            <div class="pull-left"><i class="ti-user"></i><span class="right-nav-text">الموظفون</span></div>
+                            <div class="pull-left"><i class="ti-user"></i><span class="right-nav-text">الانشطه</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="users" class="collapse" data-parent="#sidebarnav">
                             <li> <a href="{{route('users.index')}}">قائمة الموظفين</a> </li>
+                            <li> <a href="{{route('jobs.index')}}">قائمة الوظائف</a></li>
                         </ul>
                     </li>
 
 
-                    <li>
+                    {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#companies">
                             <div class="pull-left"><i class="ti-archive"></i><span class="right-nav-text">الشركات</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="companies" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('companies.index')}}">قائمة الشركات</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
 
-                    <li>
+                    {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#jobs">
                             <div class="pull-left"><i class="ti-joomla"></i><span class="right-nav-text">الوظائف</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="jobs" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('jobs.index')}}">قائمة الوظائف</a></li>
+                        </ul>
+                    </li> --}}
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#traning">
+                            <div class="pull-left"><i class="fab fa-discourse"></i><span class="right-nav-text">الدورات التدريبيه</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="traning" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{url('traning-course')}}"> الدورات التدريبيه</a></li>
+                            <li> <a href="{{url('user-traning')}}">  اضافه دوره لمستخدم</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#reports">
+                            <div class="pull-left"><i class="fas fa-sticky-note"></i><span class="right-nav-text">التقارير</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="reports" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('absences')}}"> الغيابات</a></li>
+                            <li> <a href="{{route('user-moey')}}"> التحويلات</a></li>
+                            <li> <a href="{{route('tranings')}}"> الدورات التدريبه</a></li>
+                            <li> <a href="{{route('employments')}}"> التوظيف</a></li>
+                            <li> <a href="{{route('latest')}}"> التاخير</a></li>
                         </ul>
                     </li>
 

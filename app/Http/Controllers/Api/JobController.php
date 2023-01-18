@@ -133,12 +133,12 @@ class JobController extends Controller
         if(request('city_id') != null){
             $data->where('city_id',request('city_id'));
         }
-        if(request('min_salary') != null){
-            $data->where('minimum_cost','>=',request('min_salary'));
+        if(request('min_salary') != null && request('max_salary') != null){
+            $data->whereBetween('minimum_cost',[request('min_salary'),request('max_salary')]);
         }
-        if(request('max_salary') != null){
-            $data->where('maximum_cost','<=',request('max_salary'));
-        }
+        // if(request('max_salary') != null){
+        //     $data->where('maximum_cost','<=',request('max_salary'));
+        // }
         if(request('job_type') != null){
             $data->where('job_type',request('job_type'));
         }

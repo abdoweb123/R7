@@ -71,6 +71,7 @@
                                 <th>الهاتف الشخصي</th>
                                 <th>الحالة</th>
                                 <th>اضافه تحذير</th>
+                                <th> التفاصيل</th>
                                 <th>العمليات</th>
                             </tr>
                             </thead>
@@ -85,6 +86,10 @@
                                     <td>{{ $item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
                                     <td>
                                         <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add_wraning{{ $item->id }}" title="اضافه تحذير">اضافه تحذير</button>
+                                    </td>
+                                    <td>
+                                    <a href="{{url('user-details',$item->id)}}" class="btn btn-info btn-sm">
+                                           التفاصيل</a>
                                     </td>
                                     <td>
                                         <a type="button" href="{{route('users.edit',$item->id)}}" class="process">

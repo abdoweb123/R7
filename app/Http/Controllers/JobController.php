@@ -16,7 +16,12 @@ class JobController extends Controller
     /*** index function ***/
     public function index()
     {
-        $data['jobs'] = Job::latest()->paginate(10);
+       
+        if (auth('company')->user()->role_id == 1) {
+            $data['jobs'] = Job::latest()->paginate(10);
+        }else{
+            $data['jobs'] = Job::where('company_id',auth()->guard('company')->user()->id)->latest()->paginate(10);
+        }
         return view('jobs.index', compact('data'));
     }
 
@@ -25,7 +30,7 @@ class JobController extends Controller
     /*** create function ***/
     public function create()
     {
-        $data['companies'] = Company::select('id','company_name')->get();
+        // $data['companies'] = Company::select('id','company_name')->get();
         $data['cities'] = City::select('id','name')->get();
         $data['specialties'] = Specialty::select('id','name')->get();
 
@@ -47,7 +52,6 @@ class JobController extends Controller
         $job->longitude = $request['longitude'];
         $job->duration_by_day = $request['duration_by_day'];
         $job->minimum_cost = $request['minimum_cost'];
-        $job->maximum_cost = $request['maximum_cost'];
         $job->payment_type = $request['payment_type'];
         $job->job_type = $request['job_type'];
         $job->job_description = $request['job_description'];
@@ -95,7 +99,6 @@ class JobController extends Controller
             'longitude'=>$request['longitude'],
             'duration_by_day'=>$request['duration_by_day'],
             'minimum_cost'=>$request['minimum_cost'],
-            'maximum_cost'=>$request['maximum_cost'],
             'payment_type'=>$request['payment_type'],
             'job_type'=>$request['job_type'],
             'job_description'=>$request['job_description'],

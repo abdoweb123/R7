@@ -17,13 +17,21 @@
                     @csrf
                     @method('PUT')
                     <div class="row">
-                        <div class="col">
+                        <div class="col-md-6">
                             <label for="name_ar" class="mr-sm-2">اسم الدولة باللغة العربية</label>
                             <input id="name_ar" type="text" name="name_ar" value="{{ $item->getTranslation('name', 'ar') }}" class="form-control">
                         </div>
-                        <div class="col">
+                        <div class="col-md-6">
                             <label for="name_en" class="mr-sm-2">اسم الدولة باللغة الإنجليزية</label>
                             <input id="name_en" type="text" name="name_en" value="{{ $item->getTranslation('name', 'en') }}" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="image" class="mr-sm-2">الصوره</label>
+                            <input id="image" type="file" name="image"  class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="code" class="mr-sm-2">الكود</label>
+                            <input id="code" type="text" name="code" value="{{ $item->code }}" class="form-control">
                         </div>
                     </div>
                     <div class="row">

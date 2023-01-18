@@ -16,6 +16,7 @@ class TaskController extends Controller
         }
         $user_id=Auth::id();
         $data=JobTask::find($request->task_id);
+        $data->started=1;
         $data->lat_start=$request->lat_start;
         $data->long_start=$request->long_start;
         $data->date_start=$request->date;
@@ -39,6 +40,7 @@ class TaskController extends Controller
         }
         $user_id=Auth::id();
         $data=JobTask::find($request->task_id);
+        $data->finished=1;
         $data->lat_end=$request->lat_end;
         $data->long_end=$request->long_end;
         $data->end_date=$request->date;

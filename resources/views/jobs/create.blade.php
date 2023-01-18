@@ -96,13 +96,13 @@
 
                         <div class="row mb-3">
                             <div class="col">
-                                <label class="mr-sm-2">أقل تكلفة</label>
+                                <label class="mr-sm-2">التكلفه </label>
                                 <input type="number" step="0.1" name="minimum_cost" value="{{old('minimum_cost')}}" class="form-control">
                             </div>
-                            <div class="col">
+                            {{-- <div class="col">
                                 <label class="mr-sm-2">أكبر تكلفة</label>
                                 <input type="number" step="0.1" name="maximum_cost" value="{{old('maximum_cost')}}" class="form-control">
-                            </div>
+                            </div> --}}
                             <div class="col">
                                 <label class="mr-sm-2">نوع الوظيفة</label>
                                 <select name="job_type" class="form-control">
@@ -193,16 +193,16 @@
                                 <input type="number" name="duration_by_day" value="{{old('duration_by_day')}}" class="form-control">
                             </div>
                             <div class="col">
-                                <label class="mr-sm-2">أقل تكلفة</label>
-                                <input type="number" step="0.1" name="minimum_cost" value="{{old('minimum_cost')}}" class="form-control">
+                                <label class="mr-sm-2">التكلفة</label>
+                                <input type="number" min="0" name="minimum_cost" value="{{old('minimum_cost')}}" class="form-control">
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <div class="col">
+                            {{-- <div class="col">
                                 <label class="mr-sm-2">أكبر تكلفة</label>
                                 <input type="number" step="0.1" name="maximum_cost" value="{{old('maximum_cost')}}" class="form-control">
-                            </div>
+                            </div> --}}
                             <div class="col">
                                 <label class="mr-sm-2">نوع الوظيفة</label>
                                 <select name="job_type" class="form-control">

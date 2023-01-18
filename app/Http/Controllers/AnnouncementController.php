@@ -39,7 +39,25 @@ class AnnouncementController extends Controller
         return redirect()->back()->with('alert-success','تم تسجيل البيانات بنجاح');
     }
 
+    public function add_dues(Request $request)
+    {
+       $request->validate([
+           'amount' => 'required',
+       ],[
+           'amount.required' => 'الكمية مطلوبة',
+       ]);
 
+        $announcement = new Announcement();
+        $announcement->job_id = $request->job_id;
+        $announcement->user_id = $request->user_id;
+        $announcement->type = $request->type;
+        $announcement->amount = $request->amount;
+        $announcement->notes = $request->notes;
+        $announcement->save();
+
+        return redirect()->back()->with('alert-success','تم تسجيل البيانات بنجاح');
+    }
+    
 
     /*** update function ***/
 //    public function update(CityRequest $request, City $announcement)

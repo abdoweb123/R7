@@ -55,10 +55,14 @@ return [
 //
 
         'company' => [
-                    'driver' => 'session',
-                    'provider' => 'companies',
-                ],
-
+                'driver' => 'session',
+                'provider' => 'companies',
+            ],
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+            'hash' => false,
+        ],
 
         'api-user' => [
             'driver' => 'jwt',

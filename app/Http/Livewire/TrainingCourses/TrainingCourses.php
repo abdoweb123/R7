@@ -23,7 +23,11 @@ class TrainingCourses extends Component
     }
     public function render()
     {
-        $results=TrainingCourse::with('compnay')->paginate();
+        if (auth('company')->user()->role_id == 1) {
+            $results=TrainingCourse::with('compnay')->paginate();
+        }else{
+            $results=TrainingCourse::with('compnay')->whereCompanyId(auth()->guard('company')->user()->id)->paginate();
+        }
         return view('livewire.training-courses.training-courses',[
             'results'=>$results,
         ])->extends('layouts.master');

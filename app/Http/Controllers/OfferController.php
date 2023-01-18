@@ -21,7 +21,7 @@ class OfferController extends Controller
         $rewards = Announcement::where('job_id',$job_id)->where('type',1)->get();
         $warnings = Announcement::where('job_id',$job_id)->where('type',2)->get();
 
-        $job = Job::find($job_id)->first();
+        $job = Job::find($job_id);
         $checkAccepted = Offer::where('job_id',$job_id)->select('accepted')->get();
         $numOfAccepted = Offer::where('job_id',$job_id)->count('accepted');
 

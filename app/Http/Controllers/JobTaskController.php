@@ -33,17 +33,19 @@ class JobTaskController extends Controller
     /*** store function ***/
     public function store(JobTaskRequest $request)
     {
-        $jobTask = new JobTask();
-        $jobTask->job_id = $request['job_id'];
-        $jobTask->company_id = $request['company_id'];
-        $jobTask->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
-        $jobTask->description = ['en' => $request->description_en, 'ar' => $request->description_ar];
-        $jobTask->user_id = null;
-        $jobTask->started = false;
-        $jobTask->finished =false;
-        $jobTask->active = true;
-        $jobTask->save();
-
+        for ($i=$request->start_date; $i <= $request->end_date ; $i++) { 
+            $jobTask = new JobTask();
+            $jobTask->job_id = $request['job_id'];
+            $jobTask->company_id = $request['company_id'];
+            $jobTask->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+            $jobTask->description = ['en' => $request->description_en, 'ar' => $request->description_ar];
+            $jobTask->date = $i;
+            $jobTask->user_id = null;
+            $jobTask->started = false;
+            $jobTask->finished =false;
+            $jobTask->active = true;
+            $jobTask->save();
+        }
         return redirect()->route('jobRequirements.create',[$request->job_id, $request->company_id, $jobTask->id])->with('alert-success','تم تسجيل البيانات بنجاح');
     }
 

@@ -1,0 +1,361 @@
+@font-face {
+  font-family: somar-Regular;
+  src: url("./fonts/alfont_com_Somar-Regular.otf"); }
+@font-face {
+  font-family: somar-Regular-italic;
+  src: url("./fonts/alfont_com_Somar-RegularItalic.otf"); }
+@font-face {
+  font-family: somar-light;
+  src: url("./fonts/alfont_com_Somar-Light.otf"); }
+@font-face {
+  font-family: somar-light-italic;
+  src: url("./fonts/alfont_com_Somar-LightItalic.otf"); }
+@font-face {
+  font-family: somar-light-x;
+  src: url("./fonts/alfont_com_Somar-ExtraLight.otf"); }
+@font-face {
+  font-family: somar-light-x-italic;
+  src: url("./fonts/alfont_com_Somar-ExtraLightItalic.otf"); }
+@font-face {
+  font-family: somar-medium;
+  src: url("./fonts/alfont_com_Somar-Medium.otf"); }
+@font-face {
+  font-family: somar-medium-italic;
+  src: url("./fonts/alfont_com_Somar-MediumItalic.otf"); }
+@font-face {
+  font-family: somar-bold;
+  src: url("./fonts/alfont_com_Somar-Bold.otf"); }
+@font-face {
+  font-family: somar-bold-italic;
+  src: url("./fonts/alfont_com_Somar-BoldItalic.otf"); }
+@font-face {
+  font-family: somar-bold-x;
+  src: url("./fonts/alfont_com_Somar-ExtraBold.otf"); }
+@font-face {
+  font-family: somar-bold-x-italic;
+  src: url("./fonts/alfont_com_Somar-ExtraBoldItalic.otf"); }
+* {
+  font-family: somar-Regular; }
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: somar-Regular; }
+
+img {
+  max-width: 100%;
+  max-height: 100%; }
+
+a {
+  text-decoration: none; }
+
+ul {
+  list-style: none;
+  padding: 0; }
+
+.login {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #f4f4f4; }
+  .login::before {
+    content: "";
+    position: absolute;
+    background: url(./full-circle.png) top right no-repeat;
+    background-size: cover;
+    top: -200px;
+    right: -200px;
+    display: block;
+    width: 500px;
+    height: 500px; }
+  .login::after {
+    content: "";
+    position: absolute;
+    background: url(./circle.png) bottom left no-repeat;
+    background-size: cover;
+    bottom: -200px;
+    left: -200px;
+    display: block;
+    width: 500px;
+    height: 500px;
+    -webkit-animation: circle 8s ease-in-out 1s infinite forwards;
+            animation: circle 8s ease-in-out 1s infinite forwards; }
+  .login .parent-boxs {
+    position: relative;
+    z-index: 99;
+    border-radius: 10px;
+    -webkit-box-shadow: 3px 4px 5px #ccc;
+            box-shadow: 3px 4px 5px #ccc; }
+    .login .parent-boxs .form {
+      background-color: #fff;
+      padding: 0px 0 30px 30px;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px; }
+      .login .parent-boxs .form .parent-head {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between; }
+        .login .parent-boxs .form .parent-head .logo img {
+          width: 90px; }
+        .login .parent-boxs .form .parent-head .head {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+              -ms-flex-align: center;
+                  align-items: center;
+          -webkit-box-pack: end;
+              -ms-flex-pack: end;
+                  justify-content: end;
+          gap: 10px;
+          margin-top: 1rem; }
+          .login .parent-boxs .form .parent-head .head p {
+            margin-bottom: unset;
+            color: #0995c6; }
+          .login .parent-boxs .form .parent-head .head button {
+            outline: none;
+            background-color: #0995c6;
+            border: 1px solid #0995c6;
+            color: #fff;
+            padding: 7px 17px;
+            border-radius: 6px;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out; }
+            .login .parent-boxs .form .parent-head .head button:hover {
+              background-color: #fff;
+              color: #0995c6;
+              border: 1px solid #0995c6; }
+            .login .parent-boxs .form .parent-head .head button:hover a {
+              color: #0995c6; }
+            .login .parent-boxs .form .parent-head .head button a {
+              color: #fff; }
+      .login .parent-boxs .form .title {
+        text-align: center;
+        padding-bottom: 1rem; }
+        .login .parent-boxs .form .title h2 {
+          font-family: "somar-medium";
+          font-size: 27px; }
+        .login .parent-boxs .form .title p {
+          line-height: 26px;
+          margin-bottom: unset;
+          color: #0995c6;
+          font-family: somar-light;
+          width: 50%;
+          margin: 0 auto; }
+      .login .parent-boxs .form form .email {
+        width: 70%;
+        margin: 0 auto;
+        text-align: start;
+        margin-bottom: 2rem; }
+        .login .parent-boxs .form form .email label {
+          display: block;
+          font-family: "somar-light"; }
+        .login .parent-boxs .form form .email input {
+          width: 100%;
+          outline: none;
+          border: none;
+          -webkit-box-shadow: 3px 3px 5px #f1f1f1;
+                  box-shadow: 3px 3px 5px #f1f1f1;
+          padding: 14px;
+          direction: ltr; }
+        .login .parent-boxs .form form .email .labels {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+              -ms-flex-align: center;
+                  align-items: center;
+          -webkit-box-pack: justify;
+              -ms-flex-pack: justify;
+                  justify-content: space-between; }
+          .login .parent-boxs .form form .email .labels .forget-pass {
+            font-family: somar-light;
+            cursor: pointer; }
+            .login .parent-boxs .form form .email .labels .forget-pass a {
+              color: #f8931f; }
+      .login .parent-boxs .form form .footer,
+      .login .parent-boxs .form form .google,
+      .login .parent-boxs .form form .alert {
+        width: 70%;
+        margin: 0 auto; }
+      .login .parent-boxs .form form .footer button {
+        width: 100%;
+        outline: none;
+        border: 1px solid #0995c6;
+        background-color: #0995c6;
+        color: #fff;
+        padding: 7px 17px;
+        border-radius: 6px;
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out; }
+        .login .parent-boxs .form form .footer button:hover {
+          background-color: #fff;
+          color: #0995c6;
+          border: 1px solid #0995c6; }
+        .login .parent-boxs .form form .footer button:hover a {
+          color: #0995c6; }
+        .login .parent-boxs .form form .footer button a {
+          color: #fff; }
+      .login .parent-boxs .form form .google {
+        margin-top: 1rem;
+        position: relative; }
+        .login .parent-boxs .form form .google hr {
+          margin: 2rem 0; }
+        .login .parent-boxs .form form .google span {
+          position: absolute;
+          top: -11px;
+          left: 50%;
+          -webkit-transform: translateX(-50%);
+                  transform: translateX(-50%);
+          background: #fff;
+          padding: 0 10px;
+          font-family: somar-light; }
+        .login .parent-boxs .form form .google button {
+          outline: none;
+          border: none;
+          width: 100%;
+          outline: none;
+          padding: 7px 17px;
+          border-radius: 6px; }
+        .login .parent-boxs .form form .google img {
+          margin-left: 8px; }
+      .login .parent-boxs .form form .alert {
+        margin: 30px auto 0 auto; }
+        .login .parent-boxs .form form .alert span {
+          font-family: "somar-medium"; }
+    .login .parent-boxs .img {
+      background-color: #0995c6;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px; }
+      .login .parent-boxs .img .user-img img {
+        height: 415px;
+        max-height: 415px;
+        -webkit-animation: img-animate 8s ease-in-out 1s infinite alternate;
+                animation: img-animate 8s ease-in-out 1s infinite alternate; }
+      .login .parent-boxs .img .title {
+        text-align: center; }
+        .login .parent-boxs .img .title p {
+          color: #fff;
+          font-family: somar-medium;
+          font-size: 30px; }
+        .login .parent-boxs .img .title .logo {
+          width: 180px; }
+
+@-webkit-keyframes img-animate {
+  0% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px); }
+  50% {
+    -webkit-transform: translateY(-20px);
+            transform: translateY(-20px); }
+  100% {
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px); } }
+
+@keyframes img-animate {
+  0% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px); }
+  50% {
+    -webkit-transform: translateY(-20px);
+            transform: translateY(-20px); }
+  100% {
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px); } }
+@-webkit-keyframes circle {
+  from {
+    -webkit-transform: rotate(0);
+            transform: rotate(0); }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+@keyframes circle {
+  from {
+    -webkit-transform: rotate(0);
+            transform: rotate(0); }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+@media screen and (max-width: 991px) {
+  .custom-head {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
+
+  .login .parent-boxs .form .parent-head .logo {
+    display: block; }
+
+  .login .parent-boxs .img {
+    display: none; }
+
+  .login::before {
+    top: -193px;
+    right: -193px;
+    width: 300px;
+    height: 300px; }
+
+  .login::after {
+    bottom: -176px;
+    left: -147px;
+    width: 300px;
+    height: 300px; } }
+@media screen and (max-width: 676px) {
+  .login::after,
+  .login::before {
+    display: none; } }
+@media screen and (max-width: 575px) {
+  .login .parent-boxs .form {
+    padding: 15px; }
+
+  .login .parent-boxs .form form .email,
+  .login .parent-boxs .form form .footer,
+  .login .parent-boxs .form form .google {
+    width: 100%; }
+
+  .login .parent-boxs .form .title p {
+    width: 100%; }
+
+  .login .parent-boxs .form .parent-head .head {
+    margin: 1rem 0; } }
+
+/*# sourceMappingURL=mian.css.map */

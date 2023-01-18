@@ -55,7 +55,7 @@ class Edit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('TrainingCourses');
+            return redirect()->to('traning-course');
         }
     }
     

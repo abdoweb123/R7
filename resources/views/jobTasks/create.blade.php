@@ -73,6 +73,17 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label class="mr-sm-2"> تاريخ البدايه  </label>
+                                <input type="date" name="start_date" value="{{old('start_date')}}" class="form-control">
+                            </div>
+                            <div class="col">
+                                <label class="mr-sm-2">تاريخ النهايه</label>
+                                <input type="date" name="end_date" value="{{old('end_date')}}" class="form-control">
+                            </div>
+                        </div>
+
                         <br>
 
                         <div class="modal-footer">

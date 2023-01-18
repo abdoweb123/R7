@@ -20,6 +20,15 @@ use App\Http\Controllers\JobTermsController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Livewire\Users\Details;
 use App\Http\Livewire\TrainingCourses\TrainingCourses;
+use App\Http\Livewire\UserTrainings\UserTrainings;
+use App\Http\Livewire\Reports\Absences;
+use App\Http\Livewire\Reports\UserMony;
+use App\Http\Livewire\Reports\Trainings;
+use App\Http\Livewire\Reports\Employment;
+use App\Http\Livewire\Reports\Latest;
+use App\Http\Livewire\Home;
+use App\Http\Livewire\Polices\PoliceEdit;
+use App\Http\Livewire\Polices\Polices;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,44 +43,51 @@ use App\Http\Livewire\TrainingCourses\TrainingCourses;
 
 
 Auth::routes();
+Route::get('/',Home::class)->middleware('auth:company');
 
-Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function(){
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth:company']], function(){
+    Route::get('/dashboard',Home::class)->middleware('auth:company');
 
+    // Route::get('', function (){ return view('auth.login'); });
 
-    Route::get('', function (){ return view('auth.login'); });
+    Route::middleware('admin_admin')->group(function () {
+        Route::resource('countries',CountryController::class)->except('show','edit','create')->middleware('admin_admin');
+        Route::resource('nationalities',NationalityController::class)->except('show','edit','create');
+        Route::resource('cities',CityController::class)->except('show','edit','create');
+        Route::resource('reachedUs',ReachedUsController::class)->except('show','edit','create');
+        Route::resource('specialties',SpecialtyController::class)->except('show','edit','create');
+        Route::post('add-wraning','UserController@add_wraning')->name('add-wraning');
+        Route::resource('companies',CompanyController::class);
 
+        // company
+        Route::get('company/login/page', [CompanyController::class, 'getLoginPage'])->name('getLoginPage.company');
+        Route::post('company/login', [CompanyController::class, 'login'])->name('login.company');
+        Route::get('company/logout', [CompanyController::class, 'logout'])->name('logout.company');
+        Route::get('company/dashboard', [CompanyController::class, 'companyDashboard'])->name('companyDashboard');
+       // ploices
+       Route::get('polices',Polices::class)->name('polices');
+       Route::get('police-edit/{id}',PoliceEdit::class)->name('police-edit');
+   
+    });
 
-    Route::resource('countries',CountryController::class)->except('show','edit','create');
-    Route::resource('nationalities',NationalityController::class)->except('show','edit','create');
-    Route::resource('cities','CityController')->except('show','edit','create');
-    Route::resource('reachedUs','ReachedUsController')->except('show','edit','create');
-    Route::resource('specialties','SpecialtyController')->except('show','edit','create');
+    //   users
     Route::resource('users',UserController::class);
-    Route::post('add-wraning','UserController@add_wraning')->name('add-wraning');
-
-
-    // company
-    Route::resource('companies','CompanyController');
-    Route::get('company/login/page', [CompanyController::class, 'getLoginPage'])->name('getLoginPage.company');
-    Route::post('company/login', [CompanyController::class, 'login'])->name('login.company');
-    Route::get('company/logout', [CompanyController::class, 'logout'])->name('logout.company');
-    Route::get('company/dashboard', [CompanyController::class, 'companyDashboard'])->name('companyDashboard');
 
 
     // jobs
     Route::resource('jobs',JobController::class);
     Route::get('all/jobs/{job_id}',[JobController::class,'returnJob'])->name('returnJob');
 
-    Route::resource('jobTasks','JobTaskController')->except('show','index');
+    Route::resource('jobTasks',JobTaskController::class)->except('show','index');
     Route::get('jobTasks/create/{job_id}/{company_id}',[JobTaskController::class,'create'])->name('jobTasks.create');
     Route::get('all/jobTasks/{job_id}/{company_id}',[JobTaskController::class,'index'])->name('jobTasks.index');
 
 
-    Route::resource('jobRequirements','JobRequirementController')->except('show','edit','create','index');
+    Route::resource('jobRequirements',JobRequirementController::class)->except('show','edit','create','index');
     Route::get('jobRequirements/create/{job_id}/{company_id}}',[JobRequirementController::class,'create'])->name('jobRequirements.create');
     Route::get('all/jobRequirements/{job_id}/{company_id}',[JobRequirementController::class,'index'])->name('jobRequirements.index');
 
-    Route::resource('jobTerms','JobTermsController')->except('show','edit','create','index');
+    Route::resource('jobTerms',JobTermsController::class)->except('show','edit','create','index');
     Route::get('jobTerms/create/{job_id}/{company_id}}',[JobTermsController::class,'create'])->name('jobTerms.create');
     Route::get('all/jobTerms/{job_id}/{company_id}',[JobTermsController::class,'index'])->name('jobTerms.index');
 
@@ -88,13 +104,20 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
 
     // announcements (reward , warning)
-    Route::resource('announcements','AnnouncementController');
+    Route::resource('announcements',AnnouncementController::class);
+    Route::post('add-dues',[AnnouncementController::class,'add_dues'])->name('add-dues');
 
     // user details
     Route::get('user-details/{user_id}',Details::class)->name('offeredTasks.index');
     // 
     Route::get('traning-course',TrainingCourses::class)->name('traning-course');
-
-
+    Route::get('user-traning',UserTrainings::class)->name('traning-course');
+// reports
+    Route::get('absences',Absences::class)->name('absences');
+    Route::get('user-moey',UserMony::class)->name('user-moey');
+    Route::get('tranings',Trainings::class)->name('tranings');
+    Route::get('employments',Employment::class)->name('employments');
+    Route::get('latest',Latest::class)->name('latest');
+ 
 }); //end of routes
 

@@ -37,7 +37,6 @@
 @section('content')
     <!-- row -->
     <div class="row">
-
         @if($job->user)
            <div class="col-xl-12 mb-30">
             <div class="card card-statistics h-100">
@@ -77,12 +76,11 @@
                         </div>
 
                         <div class="col text-right">
-                            <button  data-toggle="modal" data-target="#createReward" class="btn btn-success mx-2">إعطاء مكافأة</button>
-                            <button  data-toggle="modal" data-target="#createWarning" class="btn btn-success">خصم</button>
+                            <button  data-toggle="modal" data-target="#dues" class="btn btn-success mx-2"> المستحقات</button>
+                            <button  data-toggle="modal" data-target="#createReward" class="btn btn-primary mx-2">إعطاء مكافأة</button>
+                            <button  data-toggle="modal" data-target="#createWarning" class="btn btn-warning">خصم</button>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>

@@ -1,0 +1,96 @@
+@font-face {
+  font-family: somar-Regular;
+  src: url("./fonts/alfont_com_Somar-Regular.otf");
+}
+@font-face {
+  font-family: somar-Regular-italic;
+  src: url("./fonts/alfont_com_Somar-RegularItalic.otf");
+}
+@font-face {
+  font-family: somar-light;
+  src: url("./fonts/alfont_com_Somar-Light.otf");
+}
+@font-face {
+  font-family: somar-light-italic;
+  src: url("./fonts/alfont_com_Somar-LightItalic.otf");
+}
+
+@font-face {
+  font-family: somar-light-x;
+  src: url("./fonts/alfont_com_Somar-ExtraLight.otf");
+}
+@font-face {
+  font-family: somar-light-x-italic;
+  src: url("./fonts/alfont_com_Somar-ExtraLightItalic.otf");
+}
+@font-face {
+  font-family: somar-medium;
+  src: url("./fonts/alfont_com_Somar-Medium.otf");
+}
+@font-face {
+  font-family: somar-medium-italic;
+  src: url("./fonts/alfont_com_Somar-MediumItalic.otf");
+}
+@font-face {
+  font-family: somar-bold;
+  src: url("./fonts/alfont_com_Somar-Bold.otf");
+}
+@font-face {
+  font-family: somar-bold-italic;
+  src: url("./fonts/alfont_com_Somar-BoldItalic.otf");
+}
+
+@font-face {
+  font-family: somar-bold-x;
+  src: url("./fonts/alfont_com_Somar-ExtraBold.otf");
+}
+@font-face {
+  font-family: somar-bold-x-italic;
+  src: url("./fonts/alfont_com_Somar-ExtraBoldItalic.otf");
+}
+
+$main-c: #0995c6;
+$main-dark-c: #06536f;
+$second-c: #f8931f;
+$white-c: #fff;
+$black-c: #000;
+$gray-c: #f4f4f4;
+$second-gray-c: #e2e2e2;
+$p-c: #9b9b9b;
+* {
+  font-family: somar-Regular;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: somar-Regular;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+%before {
+  content: "";
+  display: block;
+  position: absolute;
+}
+
+%line {
+  width: 100px;
+  height: 50px;
+  background-size: auto;
+  z-index: -1;
+}

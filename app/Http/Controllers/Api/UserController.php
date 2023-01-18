@@ -12,7 +12,9 @@ use App\Models\Rate;
 use App\Models\UserFavorite;
 use App\Models\Wallet;
 use App\Models\Wraning;
-
+use App\Models\Notification;
+use App\Models\Announcement;
+use App\Models\User;
 class UserController extends Controller
 {
     public $successStatus = 200;
@@ -32,10 +34,8 @@ class UserController extends Controller
                 $data_json['data']=$data_fc_token;
                 return response()->json($data_json, $this->successStatus);
             }else{
-                $message='Bu veriler bende yok kayıtlarımız';
-                if (request()->header('lang') == 'ar') {
-                   $message='هذه البيانات ليست لدي سجلاتنا';
-                }elseif (request()->header('lang') == 'en') {
+                $message='هذه البيانات ليست لدي سجلاتنا';
+                if (request()->header('lang') == 'en') {
                     $message='This data I do not have our records';
                 }
                 $data_json['status']=false;
@@ -47,7 +47,7 @@ class UserController extends Controller
             if(Auth::attempt(['email' => request('phone_email'), 'password' => request('password')])){
                 $user_id = Auth::id();
 
-                $user = ApiUser::select('id','name','phone','email','wallet')->find($user_id);
+                $user = ApiUser::with('city:id,name','nationality:id,name','workingArea:id,name','specilaty:id,name','reachedUs')->find($user_id);
                 $data_fc_token=$user;
                 $data_fc_token['token'] =  $user->createToken('real-estate')->accessToken;
 
@@ -80,8 +80,7 @@ class UserController extends Controller
         }elseif (request()->header('lang') == 'en') {
             $this->err_message='Sorry , Wrong data ';
         }
-        $user=ApiUser::with('city:id,name','nationality:id,name','workingArea:id,name','specilaty:id,name','reachedUs')->find($user_id);
-
+        $user=User::with('city:id,name','nationality:id,name','workingArea:id,name','specilaty:id,name','reachedUs')->find($user_id);
         if(is_null($user) == 1)
         {
             $data['status']=false;
@@ -123,7 +122,7 @@ class UserController extends Controller
         if($check){
             $data['status']=true;
             $data['message']=$message;
-            $data['data']=null;
+            $data['data']=null; 
             return response()->json($data, 200);
         }else{
             $data['status']=false;
@@ -283,8 +282,8 @@ class UserController extends Controller
         $validator = \Validator::make($request->all(), [
             'full_name' => 'required',
             'id_number' => 'required',
-            'profile_image' => 'required|file|mimes:jpg,jpeg,png,svg',
-            'identity_image' => 'required|file|mimes:jpg,jpeg,png,svg',
+            // 'profile_image' => 'required|file|mimes:jpg,jpeg,png,svg',
+            // 'identity_image' => 'required|file|mimes:jpg,jpeg,png,svg',
             'nationality_id' => 'required',
             'country_id' => 'required',
             'city_id' => 'required',
@@ -292,7 +291,7 @@ class UserController extends Controller
             'area' => 'required',
             'workingArea_id' => 'required',
             'specialty_id' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|unique:users',
             'relative_phone' => 'required',
             'gender' => 'required',
             'birthDate' => 'required',
@@ -304,10 +303,10 @@ class UserController extends Controller
         ],[
             'full_name.required' => 'الاسم بالكامل مطلوب',
             'id_number.required' => 'الرقم القومي مطلوب',
-            'profile_image.required' => 'الصورة الشخصية مطلوب',
-            'profile_image.mimes' => 'يجب أن تكون الصورة من نوع jpg,jpeg,png,svg',
-            'identity_image.required' => 'صورة بطاقة الهوية مطلوب',
-            'identity_image.mimes' => 'يجب أن تكون الصورة من نوع jpg,jpeg,png,svg',
+            // 'profile_image.required' => 'الصورة الشخصية مطلوب',
+            // 'profile_image.mimes' => 'يجب أن تكون الصورة من نوع jpg,jpeg,png,svg',
+            // 'identity_image.required' => 'صورة بطاقة الهوية مطلوب',
+            // 'identity_image.mimes' => 'يجب أن تكون الصورة من نوع jpg,jpeg,png,svg',
             'nationality_id.required' => 'الجنسية مطلوب',
             'country_id.required' => 'الدولة مطلوب',
             'city_id.required' => 'المدينة مطلوب',
@@ -319,15 +318,13 @@ class UserController extends Controller
             'workingArea_id.required' => 'منطقة العمل مطلوب',
             'specialty_id.required' => 'التخصص مطلوب',
             'phone.required' => 'الهاتف الشخصي مطلوب',
+            'phone.unique' => 'الهاتف  موجود من قبل',
             'relative_phone.required' => 'هاتف قريب أو صاحب مطلوب',
             'gender.required' => 'النوع مطلوب',
             'birthDate.required' => 'تاريخ الميلاد مطلوب',
             'health_insurance.required' => 'الشهادة الصحية مطلوب',
             'antecedents.required' => 'الفيش و التشبيه مطلوب',
             'reachedUs_id.required' => 'كيف عرفتنا؟ مطلوب',
-            'arabic_video_url.required' => 'فيديو التقديم بالعربية مطلوب',
-            'arabic_video_url.mimes' => 'يجب أن يكون الفيديو من نوع mp4,mov,ogg,qt',
-            'english_video_url.mimes' => 'يجب أن يكون الفيديو من نوع mp4,mov,ogg,qt',
         ]);
 
         $this->message='تم الاضافه بنجاح';
@@ -336,6 +333,7 @@ class UserController extends Controller
        }elseif (request()->header('lang') == 'en') {
             $this->message='successfully registered';
        }
+
         if ($validator->fails()) {
             $errors=$validator->errors();
             $error_mg='';
@@ -346,10 +344,63 @@ class UserController extends Controller
             $data_json['message']=$error_mg;
             return response()->json($data_json, 200);
         }
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
 
-        $data = ApiUser::create($input);
+        $input = $request->all();
+
+        if( $image = $request->file('profile_image'))
+        {
+            $path = 'assets/images/';
+            $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move($path,$photo);
+            $input['profile_image'] = "$photo";
+        }
+
+        if( $image = $request->file('identity_image'))
+        {
+            $path = 'assets/images/';
+            $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move($path,$photo);
+            $input['identity_image'] = "$photo";
+        }
+
+        if( $image = $request->file('insurance_image'))
+        {
+            $path = 'assets/images/';
+            $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move($path,$photo);
+            $input['insurance_image'] = "$photo";
+        }
+        if( $image = $request->file('antecedents_image'))
+        {
+            $path = 'assets/images/';
+            $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move($path,$photo);
+            $input['antecedents_image'] = "$photo";
+        }
+
+        if( $image = $request->file('arabic_video_url'))
+        {
+            $path = 'assets/images/';
+            $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move($path,$photo);
+            $input['arabic_video_url'] = "$photo";
+        }
+
+        if( $image = $request->file('english_video_url'))
+        {
+            $path = 'assets/images/';
+            $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move($path,$photo);
+            $input['english_video_url'] = "$photo";
+        }
+        else{
+            $input['english_video_url'] = $request['english_video_url'];
+        }
+
+
+
+        $input['password'] = Hash::make($input['password']);
+        $data = User::create($input);
 
         $data['token'] =  $data->createToken('real-estate')->accessToken;
 
@@ -363,25 +414,51 @@ class UserController extends Controller
 
       public function update(Request $request, $id)
     {
-        //dd($request);
+        // dd($request);
         $user_id=Auth::id();
         $validator = \Validator::make($request->all(), [
-            'name' => 'required',
-            'email' =>  ['required', 'string', 'email', 'max:191', 'unique:users,email,'.$user_id],
-            'phone' => 'required|string|max:30|unique:users,phone,'.$user_id,
+            'full_name' => 'required',
+            'id_number' => 'required',
+            'nationality_id' => 'required',
+            'country_id' => 'required',
+            'city_id' => 'required',
+            'area' => 'required',
+            'workingArea_id' => 'required',
+            'specialty_id' => 'required',
+            'relative_phone' => 'required',
+            'gender' => 'required',
+            'birthDate' => 'required',
+            'health_insurance' => 'required',
+            'antecedents' => 'required',
+            'reachedUs_id' => 'required',
+        ],[
+            'full_name.required' => 'الاسم بالكامل مطلوب',
+            'id_number.required' => 'الرقم القومي مطلوب',
+            'profile_image.required' => 'الصورة الشخصية مطلوب',
+            'profile_image.mimes' => 'يجب أن تكون الصورة من نوع jpg,jpeg,png,svg',
+            'nationality_id.required' => 'الجنسية مطلوب',
+            'country_id.required' => 'الدولة مطلوب',
+            'city_id.required' => 'المدينة مطلوب',
+            'area.required' => 'العنوان بالتفصيل مطلوب',
+            'workingArea_id.required' => 'منطقة العمل مطلوب',
+            'specialty_id.required' => 'التخصص مطلوب',
+            'relative_phone.required' => 'هاتف قريب أو صاحب مطلوب',
+            'gender.required' => 'النوع مطلوب',
+            'birthDate.required' => 'تاريخ الميلاد مطلوب',
+            'health_insurance.required' => 'الشهادة الصحية مطلوب',
+            'antecedents.required' => 'الفيش و التشبيه مطلوب',
+            'reachedUs_id.required' => 'كيف عرفتنا؟ مطلوب',
+            'arabic_video_url.required' => 'فيديو التقديم بالعربية مطلوب',
+            'arabic_video_url.mimes' => 'يجب أن يكون الفيديو من نوع mp4,mov,ogg,qt',
+            'english_video_url.mimes' => 'يجب أن يكون الفيديو من نوع mp4,mov,ogg,qt',
         ]);
-        $this->message='başarıyla güncellendi';
-        $this->message_not_fond='veri yok';
-        if (request()->header('lang') == 'ar') {
            $this->message='تم التعديل بنجاح ';
            $this->message_not_fond='لا يوجد بيانات';
-        }elseif (request()->header('lang') == 'en') {
-            $this->message='successfully updated';
-            $this->message_not_fond='There are no data';
-        }elseif (request()->header('lang') == 'tr') {
-            $this->message='başarıyla güncellendi';
-            $this->message_not_fond='veri yok';
-        }
+           
+           if (request()->header('lang') == 'en') {
+                $this->message='successfully updated';
+                $this->message_not_fond='There are no data';
+            }
         if ($validator->fails()) {
             $errors=$validator->errors();
             $error_mg='';
@@ -393,41 +470,142 @@ class UserController extends Controller
             $data_json['error_message_en']=$error_mg;
             return response()->json($data_json, 200);
         }
-        $json_dt=array();
-        $data_upd= ApiUser::find($user_id);
-        $data_upd->name=$request->name;
-        $data_upd->email=$request->email;
-        $data_upd->phone=$request->phone;
-        $data_upd->whatsapp=$request->whatsapp;
-        $data_upd->address=$request->address;
-        $data_upd->city_id=$request->city_id;
-        $data_upd->state_id=$request->state_id;
-        $data_upd->is_provider=$request->is_provider;
-        $data_upd->c_name=$request->c_name;
-        $data_upd->is_company=$request->is_company;
-        $data_upd->lisence_number=$request->lisence_number;
-        $data_upd->lisence_document=$request->lisence_document;
-        if ($request->hasFile('avatar') ) {
-            $relativePath=uploadImage($request->avatar);
-            $data['avatar']=$relativePath;
+
+         $data = $request->all();
+        $user=User::find($user_id);
+
+        if( $image = $request->file('profile_image'))
+        {
+            $image_path = 'assets/images/'.$user->profile_image;
+            if (file_exists($image_path))
+            {
+                @unlink($image_path);
+            }
+
+            $path = 'assets/images/';
+            $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move($path,$photo);
+            $data['profile_image'] = "$photo";
+            $user->update(['profile_image'=>$data['profile_image']]);
+        }
+        else{
+            unset($data['profile_image']);
         }
 
-        $user_up=$data_upd->save();
-        if( $user_up == true)
+        if( $image = $request->file('identity_image'))
         {
-            $json_dt['id']=$user_id;
-            $json_dt['name']=$data_upd->name;
-            $json_dt['email']=$data_upd->email;
-            $json_dt['phone']=$data_upd->phone;
-            $json_dt['address']=$data_upd->address;
-            $json_dt['city_id']=$data_upd->city_id;
-            $json_dt['whatsapp']=$data_upd->whatsapp;
-            $json_dt['avatar']=$data_upd->avatar;
+            $image_path = 'assets/images/'.$user->identity_image;
+            if (file_exists($image_path))
+            {
+                @unlink($image_path);
+            }
 
-            $data['status']=true;
-            $data['message']=$this->message;
-            $data['data']=$json_dt;
-            return response()->json($data, $this-> successStatus);
+            $path = 'assets/images/';
+            $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move($path,$photo);
+            $data['identity_image'] = "$photo";
+            $user->update(['identity_image'=>$data['identity_image']]);
+        }
+        else{
+            unset($data['identity_image']);
+        }
+
+
+        if( $image = $request->file('antecedents_image'))
+        {
+            $image_path = 'assets/images/'.$user->antecedents_image;
+            if (file_exists($image_path))
+            {
+                @unlink($image_path);
+            }
+
+            $path = 'assets/images/';
+            $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move($path,$photo);
+            $data['antecedents_image'] = "$photo";
+            $user->update(['antecedents_image'=>$data['antecedents_image']]);
+        }
+        else{
+            unset($data['antecedents_image']);
+        }
+        
+        if( $image = $request->file('insurance_image'))
+        {
+            $image_path = 'assets/images/'.$user->insurance_image;
+            if (file_exists($image_path))
+            {
+                @unlink($image_path);
+            }
+
+            $path = 'assets/images/';
+            $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move($path,$photo);
+            $data['insurance_image'] = "$photo";
+            $user->update(['insurance_image'=>$data['insurance_image']]);
+        }
+        else{
+            unset($data['insurance_image']);
+        }
+
+        if( $image = $request->file('arabic_video_url'))
+        {
+            $image_path = 'assets/images/'.$user->arabic_video_url;
+            if (file_exists($image_path))
+            {
+                @unlink($image_path);
+            }
+
+            $path = 'assets/images/';
+            $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move($path,$photo);
+            $data['arabic_video_url'] = "$photo";
+            $user->update(['arabic_video_url'=>$data['arabic_video_url']]);
+        }
+        else{
+            unset($data['arabic_video_url']);
+        }
+
+        if( $image = $request->file('english_video_url'))
+        {
+            $image_path = 'assets/images/'.$user->english_video_url;
+            if (file_exists($image_path))
+            {
+                @unlink($image_path);
+            }
+
+            $path = 'assets/images/';
+            $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move($path,$photo);
+            $data['english_video_url'] = "$photo";
+            $user->update(['english_video_url'=>$data['english_video_url'],]);
+        }
+        else{
+            unset($data['english_video_url']);
+        }
+
+            $user->update([
+                'full_name'=>$request['full_name'],
+                'id_number'=>$request['id_number'],
+                'nationality_id'=>$request['nationality_id'],
+                'country_id'=>$request['country_id'],
+                'city_id'=>$request['city_id'],
+                'area'=>$request['area'],
+                'workingArea_id'=>$request['workingArea_id'],
+                'specialty_id'=>$request['specialty_id'],
+                'relative_phone'=>$request['relative_phone'],
+                'gender'=>$request['gender'],
+                'birthDate'=>$request['birthDate'],
+                'health_insurance'=>$request['health_insurance'],
+                'antecedents'=>$request['antecedents'],
+                'reachedUs_id'=>$request['reachedUs_id'],
+                'active'=>$request['active'],
+            ]);
+        if( $user)
+        {
+            $data_json['status']=true;
+            $data_json['message']=$this->message;
+            $data_json['data']=$user;
+            return response()->json($data_json, $this-> successStatus);
         }
         else
         {
@@ -714,6 +892,38 @@ class UserController extends Controller
     {
         $user_id=Auth::id();
         $data_get=Wraning::with('company:id,company_name')->where('user_id',$user_id)->get();
+        if($data_get != null){
+            $data_json['status']=true;
+            $data_json['message']='';
+            $data_json['data']=$data_get;
+            return response()->json($data_json, 200);
+        }else{
+            $data_json['status']=false;
+            $data_json['message']='يوجد شئ ما خطأ';
+            $data_json['data']=null;
+            return response()->json($data_json, 200);
+        }
+    }
+    public function get_notifaction()
+    {
+        $user_id=Auth::id();
+        $data_get=Notification::where('user_id',$user_id)->get();
+        if($data_get != null){
+            $data_json['status']=true;
+            $data_json['message']='';
+            $data_json['data']=$data_get;
+            return response()->json($data_json, 200);
+        }else{
+            $data_json['status']=false;
+            $data_json['message']='يوجد شئ ما خطأ';
+            $data_json['data']=null;
+            return response()->json($data_json, 200);
+        }
+    }
+    public function get_announcement()
+    {
+        $user_id=Auth::id();
+        $data_get=Announcement::where('user_id',$user_id)->get();
         if($data_get != null){
             $data_json['status']=true;
             $data_json['message']='';

@@ -20,7 +20,13 @@ class UserController extends Controller
     /*** index function ***/
     public function index()
     {
-        $data['users'] = User::latest()->paginate(10);
+        if (auth('company')->user()->role_id == 1) {
+            $data['users'] = User::latest()->paginate(10);
+        }else{
+            $data['users'] = User::whereHas('job',function($job){
+                $job->whereCompanyId(auth('company')->user()->id);
+            })->latest()->paginate(10);
+        }
         $companies=Company::select('id','company_name')->get();
         return view('users.index', compact('data','companies'));
     }

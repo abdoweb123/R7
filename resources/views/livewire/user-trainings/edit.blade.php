@@ -43,8 +43,7 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary"
                     data-dismiss="modal">close</button>
-            {{-- <button type="submit" class="btn btn-success">إرسال</button> --}}
-            <button type="submit" class="btn btn-success">{{ $ids != null ? 'تعديل' : 'حفظ' }}</button>
+            <button type="submit" class="btn btn-warning">{{ $ids != null ? 'تعديل' : 'حفظ' }}</button>
         </div>
     </form>
 </div>

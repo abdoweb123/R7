@@ -46,8 +46,8 @@
     <!-- row mb-3 -->
     <div class="row mb-3">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
+            <div class="box">
+                <div class="box-body">
                     <form action="{{ route('jobRequirements.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="job_id" value="{{$job_id}}">
@@ -67,67 +67,69 @@
                         <br><br>
 
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">حفظ</button>
+                            <button type="submit" class="btn btn-warning">حفظ</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="row mb-3">
-        <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
-                               style="text-align: center">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>اسم المتطلب باللغة العربية</th>
-                                <th>اسم المتطلب باللغة الإنجليزية</th>
-                                <th>اسم الشركة</th>
-                                <th>اسم الوظيفة</th>
-                                <th>الحالة</th>
-                                <th>العمليات</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($jobRequirements as $item)
+    <div class="box">
+        <div class="box-body">
+        <div class="row mb-3">
+            <div class="col-xl-12 mb-30">
+                <div class="card card-statistics h-100">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example5" class="table table-bordered table-striped" style="width:100%">
+                                <thead>
                                 <tr>
-
-                                    <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $item->getTranslation('name', 'ar') }}</td>
-                                    <td>{{ $item->getTranslation('name', 'en') }}</td>
-                                    <td>@isset($item->company->company_name)  {{ $item->company->company_name }} @else لا يوجد @endisset</td>
-                                    <td>@isset($item->job->job_description)  {{ $item->job->job_description }} @else لا يوجد @endisset</td>
-                                    <td>{{ $item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
-                                    <td>
-                                        <button type="button" class="process"
-                                                data-toggle="modal" data-target="#edit{{ $item->id }}" title="تعديل">
-                                            <i style="color:cadetblue; font-size:18px;" class="fa fa-edit"></i></button>
-
-                                        <button type="button" class="process"
-                                                data-toggle="modal" data-target="#delete{{ $item->id }}" title="حذف">
-                                            <i style="color:red; font-size:18px;" class="fa fa-trash"></i></button>
-                                    </td>
+                                    <th>#</th>
+                                    <th>اسم المتطلب باللغة العربية</th>
+                                    <th>اسم المتطلب باللغة الإنجليزية</th>
+                                    <th>اسم الشركة</th>
+                                    <th>اسم الوظيفة</th>
+                                    <th>الحالة</th>
+                                    <th>العمليات</th>
                                 </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($jobRequirements as $item)
+                                    <tr>
 
-                                <!--  page of edit_modal_city -->
-                                @include('jobRequirements.edit')
+                                        <td>{{ $loop->index+1 }}</td>
+                                        <td>{{ $item->getTranslation('name', 'ar') }}</td>
+                                        <td>{{ $item->getTranslation('name', 'en') }}</td>
+                                        <td>@isset($item->company->company_name)  {{ $item->company->company_name }} @else لا يوجد @endisset</td>
+                                        <td>@isset($item->job->job_description)  {{ $item->job->job_description }} @else لا يوجد @endisset</td>
+                                        <td>{{ $item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
+                                        <td>
+                                            <button type="button" class="process"
+                                                    data-toggle="modal" data-target="#edit{{ $item->id }}" title="تعديل">
+                                                <i style="color:cadetblue; font-size:18px;" class="fa fa-edit"></i></button>
 
-                                <!--  page of delete_modal_city -->
-                            @include('jobRequirements.delete')
+                                            <button type="button" class="process"
+                                                    data-toggle="modal" data-target="#delete{{ $item->id }}" title="حذف">
+                                                <i style="color:red; font-size:18px;" class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+
+                                    <!--  page of edit_modal_city -->
+                                    @include('jobRequirements.edit')
+
+                                    <!--  page of delete_modal_city -->
+                                @include('jobRequirements.delete')
 
 
-                            @endforeach
-                        </table>
+                                @endforeach
+                            </table>
 
-{{--                        <div> {{$jobRequirements->links('pagination::bootstrap-4')}}</div>--}}
+    {{--                        <div> {{$jobRequirements->links('pagination::bootstrap-4')}}</div>--}}
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 

@@ -7,9 +7,8 @@
                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
                     تعديل بيانات الجنسية
                 </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
             </div>
             <div class="modal-body">
                 <!-- add_form -->
@@ -44,8 +43,8 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary"
-                                data-dismiss="modal">إغلاق</button>
-                        <button type="submit" class="btn btn-success">إرسال</button>
+                            data-bs-dismiss="modal">إغلاق</button>
+                        <button type="submit" class="btn btn-warning">إرسال</button>
                     </div>
                 </form>
 

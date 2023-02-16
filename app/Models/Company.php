@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Translatable\HasTranslations;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Role;
 class Company extends Authenticatable
 {
-    use HasFactory , SoftDeletes , HasTranslations,HasApiTokens;
+    use HasFactory , SoftDeletes , HasTranslations,HasApiTokens,HasRoles;
 
     public $translatable = ['company_name'];
 
@@ -23,7 +25,10 @@ class Company extends Authenticatable
 protected $hidden = [
     'password', 'remember_token',
 ];
-
+protected $with =[
+    'permissions',
+     'roles'
+];
     /*** start relations ***/
 
     public function city()

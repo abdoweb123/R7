@@ -86,3 +86,5 @@ Route::post('add-support', [PublicController::class,'store_support']);
 Route::get('get-support', [PublicController::class,'get_support']);
 Route::get('get-common-question', [PublicController::class,'get_common_question']);
 Route::get('get-polices', [PublicController::class,'get_polices']);
+Route::get('get-inquires', [PublicController::class,'get_inquires']);
+Route::post('add-contact', [PublicController::class,'add_contact']);

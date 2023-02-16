@@ -53,106 +53,115 @@
     <!-- row mb-3 -->
     <div class="row mb-3">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body wizard-content">
                     <div class="my-container">
+                        {{-- <button class="btn btn-primary">بيانات الموظف</button>
+                        <button class="btn btn-prmary">الأعمال السابقة</button> --}}
                         <ul id="my-taps" class="mb-4">
-                            <li id="tap1" class="li-tab">بيانات الموظف</li>
-                            <li id="tap2" class="inactive li-tab">الأعمال السابقة</li>
+                            <li id="tap1" class="li-tab bg-warning">بيانات الموظف</li>
+                            <li id="tap2" class="inactive li-tab bg-primary">الأعمال السابقة</li>
 {{--                            <li id="tap3" class="inactive tabs">About</li>--}}
 {{--                            <li id="tap4" class="inactive tabs">Contact</li>--}}
                         </ul>
 
                         <div id="tap1-content">
                             <div class="row">
-                                <img style="border-radius: 50%; width: 150px;  height: 150px" src="{{asset('assets/images/'.$user->profile_image)}}" alt="الصورة الشخصية">
+                                <img style="border-radius: 50%; width: 150px;  height: 150px" src="{{asset('assets/images/'.@$user->profile_image)}}" alt="الصورة الشخصية">
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="mt-4">
                                         <label class="d-inline">الاسم بالكامل</label>
-                                        <p style="font-weight:bold">{{$user->full_name}}</p>
+                                        <p style="font-weight:bold">{{@$user->full_name}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-inline">التخصص</label>
-                                        <p style="font-weight:bold">{{$user->specilaty->name}}</p>
+                                        <p style="font-weight:bold">{{@$user->specilaty->name}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-inline">الرقم القومي</label>
-                                        <p style="font-weight:bold">{{$user->id_number}}</p>
+                                        <p style="font-weight:bold">{{@$user->id_number}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-inline">الجنسية</label>
-                                        <p style="font-weight:bold">{{$user->nationality->name}}</p>
+                                        <p style="font-weight:bold">{{@$user->nationality->name}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-inline">الدولة</label>
-                                        <p style="font-weight:bold">{{$user->country->name}}</p>
+                                        <p style="font-weight:bold">{{@$user->country->name}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-inline">المدينة</label>
-                                        <p style="font-weight:bold">{{$user->city->name}}</p>
+                                        <p style="font-weight:bold">{{@$user->city->name}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-inline">العنوان بالتفصيل</label>
-                                        <p style="font-weight:bold">{{$user->area}}</p>
+                                        <p style="font-weight:bold">{{@$user->area}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-inline">منطقة العمل</label>
-                                        <p style="font-weight:bold">{{$user->workingArea->name}}</p>
+                                        <p style="font-weight:bold">{{@$user->workingArea->name}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-block">فيديو التقديم بالعربية</label>
-                                        <img style="width:200px;  height:150px" src="{{asset('assets/images/'.$user->arabic_video_url)}}" alt="">
+                                        <video width="320" height="240" controls>
+                                            <source src="{{asset('assets/images/'.@$user->arabic_video_url)}}" type="video/mp4">
+                                        </video>
+                                        {{-- <img style="width:200px;  height:150px" src="{{asset('assets/images/'.@$user->arabic_video_url)}}" alt=""> --}}
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mt-4">
                                         <label class="d-inline">البريد الإلكتروني</label>
-                                        <p style="font-weight:bold">{{$user->email}}</p>
+                                        <p style="font-weight:bold">{{@$user->email}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-inline">الهاتف الشخصي</label>
-                                        <p style="font-weight:bold">{{$user->phone}}</p>
+                                        <p style="font-weight:bold">{{@$user->phone}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-inline">هاتف قريب أو صاحب</label>
-                                        <p style="font-weight:bold">{{$user->relative_phone}}</p>
+                                        <p style="font-weight:bold">{{@$user->relative_phone}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-inline">النوع</label>
-                                        <p style="font-weight:bold">{{ $user->gender == 1 ? 'ذكر' : 'أنثي'}}</p>
+                                        <p style="font-weight:bold">{{ @$user->gender == 1 ? 'ذكر' : 'أنثي'}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-inline">تاريخ الميلاد</label>
-                                        <p style="font-weight:bold">{{$user->birthDate}}</p>
+                                        <p style="font-weight:bold">{{@$user->birthDate}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-inline">الشهادة الصحية</label>
-                                        <p style="font-weight:bold">{{ $user->health_insurance == 1 ? 'موجود' : 'غير موجود'}}</p>
+                                        <p style="font-weight:bold">{{ @$user->health_insurance == 1 ? 'موجود' : 'غير موجود'}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-inline">الفيش و التشبيه</label>
-                                        <p style="font-weight:bold">{{ $user->antecedents == 1 ? 'موجود' : 'غير موجود'}}</p>
+                                        <p style="font-weight:bold">{{ @$user->antecedents == 1 ? 'موجود' : 'غير موجود'}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-inline">كيف عرفتنا؟</label>
-                                        <p style="font-weight:bold">{{ $user->reachedUs->name}}</p>
+                                        <p style="font-weight:bold">{{ @$user->reachedUs->name}}</p>
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-block">صورة بطاقة الهوية</label>
-                                        <img style="width:200px;  height:150px" src="{{asset('assets/images/'.$user->identity_image)}}" alt="">
+                                        <img style="width:200px;  height:150px" src="{{asset('assets/images/'.@$user->identity_image)}}" alt="">
                                     </div>
                                     <div class="mt-4">
                                         <label class="d-block">فيديو التقديم بالإنجليزية</label>
-                                        <img style="width:200px;  height:150px" src="{{asset('assets/images/'.$user->english_video_url)}}" alt="">
+                                        {{-- <img style="width:200px;  height:150px" src="{{asset('assets/images/'.@$user->english_video_url)}}" alt=""> --}}
+                                        <video width="320" height="240" controls>
+                                            <source src="{{asset('assets/images/'.@$user->english_video_url)}}" type="video/mp4">
+                                        </video>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div id="tap2-content">
-                            @if($user->jobTasks == [])
-                                @foreach($user->jobTasks as $jobTask)
+                            @if(@$user->jobTasks == [])
+                                @foreach(@$user->jobTasks as $jobTask)
                                     {{ $jobTask->description}}
                                 @endforeach
                             @else

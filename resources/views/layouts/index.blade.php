@@ -12,6 +12,7 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
+
     <!-- row -->
     <div class="row">
         <div class="col-md-12 mb-30">

@@ -39,8 +39,8 @@
     <div class="row">
         @if($job->user)
            <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
+            <div class="box">
+                <div class="box-body">
 
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -64,15 +64,15 @@
 
                     <div class="row">
                         <div class="col">
-                             <img style="border-radius: 5px; width: 160px;  height: 160px" src="{{asset('assets/images/'.$job->user->profile_image)}}" alt="الصورة الشخصية">
+                             <img style="border-radius: 5px; width: 160px;  height: 160px" src="{{asset('assets/images/'.@$job->user->profile_image)}}" alt="الصورة الشخصية">
                         </div>
 
                         <div class="col">
-                            <h5>{{$job->user->full_name}}</h5>
+                            <h5>{{@$job->user->full_name}}</h5>
                             <br>
-                            <p>  رقم الهاتف :   &nbsp;&nbsp;&nbsp;<span>{{$job->user->phone}}</span></p>
-                            <p>  البريد الإلكتروني :  &nbsp;&nbsp;&nbsp;<span>{{$job->user->email}}</span></p>
-                            <p>  المدينة :  &nbsp;&nbsp;&nbsp;<span>{{$job->user->city->name}}</span></p>
+                            <p>  رقم الهاتف :   &nbsp;&nbsp;&nbsp;<span>{{@$job->user->phone}}</span></p>
+                            <p>  البريد الإلكتروني :  &nbsp;&nbsp;&nbsp;<span>{{@$job->user->email}}</span></p>
+                            <p>  المدينة :  &nbsp;&nbsp;&nbsp;<span>{{@$job->user->city->name}}</span></p>
                         </div>
 
                         <div class="col text-right">
@@ -89,8 +89,34 @@
 
 
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
+            <div class="box">
+                <div class="box-body">
+                    <div class="row mb-10" style="text-align: end">
+
+                        <div class="col">
+                            {{-- <button  data-toggle="modal" data-target="#dues" class="btn btn-success mx-2"> المستحقات</button>
+                            <button  data-toggle="modal" data-target="#createReward" class="btn btn-primary mx-2">إعطاء مكافأة</button>
+                            <button  data-toggle="modal" data-target="#createWarning" class="btn btn-warning">خصم</button> --}}
+                            <a  href="{{route('jobTasks.index',[$job->id, $job->company->id])}}" title="مهمات الوظيفة"  class="btn btn-success">
+                                <i class="fa fa-sticky-note-o"  aria-hidden="true"></i> مهمات الوظيفة &nbsp 
+                            </a>
+        
+                            <a  href="{{route('jobRequirements.index',[$job->id , $job->company->id])}}" title=" متطلبات الوظيفة" class="btn btn-primary">
+                                <i class="fa fa-address-card-o"  aria-hidden="true"></i> متطلبات الوظيفة&nbsp
+                            </a>
+        
+                            <a  href="{{route('jobTerms.index',[$job->id, $job->company->id])}}" title=" شروط الوظيفة" class="btn btn-warning">
+                                <i class="fa fa-book"  aria-hidden="true"></i> شروط الوظيفة&nbsp 
+                            </a>
+        
+                            <a  href="{{route('jobs.show',$job->id)}}" title=" بيانات الوظيفه " class="btn btn-info">
+                                <i class="fa fa-calculator"  aria-hidden="true"></i> بيانات الوظيفه &nbsp
+                            </a>
+
+                        </div>
+                    </div>
+
+                   
 
                     <h4 class="text-center font-weight-bold mb-4">تفاصيل الوظيفة</h4>
 
@@ -168,10 +194,9 @@
                             {{-- tasks --}}
                             <div class="table-responsive">
 
-
-                                <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#createOffer">
+                                <button type="button"  class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#createOffer" title="إضافة مهمة ">
                                     إضافة مهمة
-                                </button>
+                                  </button>
 
 
                                 <table class="table table-hover table-sm table-bordered p-0" data-page-length="50"
@@ -256,8 +281,7 @@
                         <div id="tap3-content">
                             {{-- warnings --}}
                             <div class="table-responsive">
-                                <table class="table table-hover table-sm table-bordered p-0" data-page-length="50"
-                                       style="text-align: center">
+                                <table id="example5" class="table table-bordered table-striped" style="width:100%">
                                     <thead>
                                     <tr>
                                         <th>#</th>

@@ -14,8 +14,9 @@
         <!-- row -->
         <div class="row">
             <div class="col-xl-12 mb-30">
-                <div class="card card-statistics h-100">
-                    <div class="card-body">
+                <div class="box">
+                    <div class="box-body">
+
                         @foreach(['danger','warning','success','info'] as $msg)
                             @if(Session::has('alert-'.$msg))
                                 <div class="alert alert-{{$msg}}">
@@ -27,60 +28,56 @@
                         <h4>{{ $tittle }}</h4>
                         <span class="text-muted mt-3 font-weight-bold font-size-sm">عدد الريكويست({{ $results->count() }})</span>
                         <br><br>
+                        
                         <div class="row">
-                                <div class="col-md-6">
-                                    <form wire:submit.prevent="report" >
-                                        <div class="form-group row">
-                                            <input class="form-control col-md-3 col-sm-6" type="date" placeholder="date-start" wire:model.lazy='start_date' />
-                                            <input class="form-control col-md-3 col-sm-6" type="date" placeholder="date-end" wire:model.lazy='end_date'/>
-                                            <button class="btn btn-info font-weight-bolder font-size-sm col-md-2 ">تقرير</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-md-6">
+                            <div class="col-md-6">
+                                <form wire:submit.prevent="report" >
                                     <div class="row">
-                                        @if(auth('company')->user()->role_id == 1)
                                         <div class="col-md-4">
-                                            <select wire:model='company_id' class="form-control mr-sm-2 p-2" style="width: 100%" wire:change="company_filter">
-                                                <option value="">اختر الشركه</option>
-                                                @isset($companies)
-                                                    @foreach ($companies as $company)
-                                                        <option value="{{ $company->id }}">{{ $company->company_name }}</option>
-                                                    @endforeach
-                                                @endisset
-                                            </select>
-                                        </div>
-                                        @endif
-                                        <div class="col-md-4">
-                                            <select wire:model='user_id' class="form-control mr-sm-2 p-2" style="width: 100%" wire:change='user_filter'>
-                                                <option value="">اختر الموظف</option>
-                                                @isset($users)
-                                                    @foreach ($users as $user)
-                                                        <option value="{{ $user->id }}">{{ $user->full_name }}</option>
-                                                    @endforeach
-                                                @endisset
-                                            </select>
+                                            <input class="form-control" type="date" placeholder="date-start" wire:model.lazy='start_date' />
                                         </div>
                                         <div class="col-md-4">
-                                            <button class="btn btn-success" wire:click='download_report_one'><i class="fa fa-download"></i> excel</button>
+                                            <input class="form-control" type="date" placeholder="date-end" wire:model.lazy='end_date'/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button class="btn btn-info font-weight-bolder font-size-sm  btn-sm">تقرير</button>
                                         </div>
                                     </div>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    @if(@auth('company')->user()->role_id == 1)
+                                    <div class="col-md-4">
+                                        <select wire:model='company_id' class="form-control mr-sm-2 p-2" style="width: 100%" wire:change="company_filter">
+                                            <option value="">اختر الشركه</option>
+                                            @isset($companies)
+                                                @foreach ($companies as $company)
+                                                    <option value="{{ $company->id }}">{{ $company->company_name }}</option>
+                                                @endforeach
+                                            @endisset
+                                        </select>
+                                    </div>
+                                    @endif
+                                    <div class="col-md-4">
+                                        <select wire:model='user_id' class="form-control mr-sm-2 p-2" style="width: 100%" wire:change='user_filter'>
+                                            <option value="">اختر الموظف</option>
+                                            @isset($users)
+                                                @foreach ($users as $user)
+                                                    <option value="{{ $user->id }}">{{ $user->full_name }}</option>
+                                                @endforeach
+                                            @endisset
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-success" wire:click='download_report_one'><i class="fa fa-download"></i> excel</button>
+                                    </div>
                                 </div>
-                                <!-- <div class="col-md-3">
-                                    <select wire:model='state_id' class="form-group" style="width: 100%">
-                                        <option value="0">اختر</option>
-                                        @isset($states)
-                                            @foreach ($states as $state)
-                                                <option value="{{ $state->id }}">{{ $state->name }}</option>
-                                            @endforeach
-                                        @endisset
-                                    </select>
-                                </div> -->
+                            </div>
                         </div>
-
                         <div class="table-responsive">
-                            <table class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
-                                   style="text-align: center" >
+                            <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
+                            style="text-align: center">
                                 <thead>
                                 <tr>
                                     <th>#</th>

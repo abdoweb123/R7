@@ -1,28 +1,29 @@
-<!-- jquery -->
-<script src="{{ URL::asset('assets/js/jquery-3.3.1.min.js') }}"></script>
-<!-- plugins-jquery -->
-<script src="{{ URL::asset('assets/js/plugins-jquery.js') }}"></script>
-<!-- plugin_path -->
-<script type="text/javascript"> var plugin_path ='{{asset('assets/js')}}/'</script>
 
-<!-- chart -->
-<script src="{{ URL::asset('assets/js/chart-init.js') }}"></script>
-<!-- calendar -->
-<script src="{{ URL::asset('assets/js/calendar.init.js') }}"></script>
-<!-- charts sparkline -->
-<script src="{{ URL::asset('assets/js/sparkline.init.js') }}"></script>
-<!-- charts morris -->
-<script src="{{ URL::asset('assets/js/morris.init.js') }}"></script>
-<!-- datepicker -->
-<script src="{{ URL::asset('assets/js/datepicker.js') }}"></script>
-<!-- sweetalert2 -->
-<script src="{{ URL::asset('assets/js/sweetalert2.js') }}"></script>
-<!-- toastr -->
-@yield('js')
-<script src="{{ URL::asset('assets/js/toastr.js') }}"></script>
-<!-- validation -->
-<script src="{{ URL::asset('assets/js/validation.js') }}"></script>
-<!-- lobilist -->
-<script src="{{ URL::asset('assets/js/lobilist.js') }}"></script>
-<!-- custom -->
-<script src="{{ URL::asset('assets/js/custom.js') }}"></script>
+	<!-- Vendor JS -->
+	<script src="{{ url('admin_new/js/vendors.min.js') }}"></script>
+	<script src="{{ url('admin_new/js/pages/chat-popup.js') }}"></script>
+    <script src="{{ url('admin_new/assets/icons/feather-icons/feather.min.js')}}"></script>	
+    <script src="{{ url('admin_new/assets/vendor_components/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ url('admin_new/assets/vendor_components/perfect-scrollbar-master/perfect-scrollbar.jquery.min.js')}}"></script>
+	<script src="{{ url('admin_new/assets/vendor_components/fullcalendar/lib/moment.min.js')}}"></script>
+	<script src="{{ url('admin_new/assets/vendor_components/fullcalendar/fullcalendar.min.js')}}"></script>
+	<script src="{{ url('admin_new/assets/vendor_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+	<script src="https://www.amcharts.com/lib/4/core.js"></script>
+	<script src="https://www.amcharts.com/lib/4/maps.js"></script>
+	<script src="https://www.amcharts.com/lib/4/geodata/worldLow.js"></script>
+	<script src="https://www.amcharts.com/lib/4/themes/dataviz.js"></script>
+	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+	<!-- CrmX Admin App -->
+	<script src="{{ url('admin_new/js/template.js') }}"></script>
+	<script src="{{ url('admin_new/js/demo.js') }}"></script>
+	{{-- <script src="{{ url('admin_new/js/pages/dashboard.js') }}"></script> --}}
+	@yield('js')
+
+	@if(isset($data_table))
+		<script src="{{ url('admin_new/assets/vendor_components/datatable/datatables.min.js') }}"></script>
+		<script src="{{ url('admin_new/js/pages/data-table.js') }}"></script>
+	@endif
+	
+
+@livewireScripts

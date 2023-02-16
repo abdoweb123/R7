@@ -22,7 +22,7 @@ class Edit extends Component
     ];
     public function render()
     {
-        $companies=Company::select('id','company_name')->get();
+        $companies=Company::select('id','company_name')->where('role_id',2)->get();
         return view('livewire.training-courses.edit',compact('companies'))->extends('layouts.master');
     }
 
@@ -70,6 +70,7 @@ class Edit extends Component
         $this->employee_cost=$edit_object['employee_cost'];
         $this->company_cost=$edit_object['company_cost'];
         $this->start_date=$edit_object['start_date'];
+        $this->app_cost=$edit_object['app_cost'];
         $this->end_date=$edit_object['end_date'];
     }
 
@@ -85,5 +86,6 @@ class Edit extends Component
         $this->company_cost=null;
         $this->start_date=null;
         $this->end_date=null;
+        $this->app_cost=null;
     }
 }

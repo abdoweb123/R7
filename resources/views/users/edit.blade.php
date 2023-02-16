@@ -43,8 +43,13 @@
     <!-- row mb-3 -->
     <div class="row mb-3">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
+           <div class="box">
+                <div class="box-header with-border">
+                    <h4 class="box-title">اضافه موظف جديده</h4>
+                    {{-- <h6 class="box-subtitle">You can us the validation like what we did</h6> --}}
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body wizard-content">
                     <form action="{{ route('users.update',$user->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -138,14 +143,14 @@
                                 <label class="mr-sm-2">هاتف قريب أو صاحب</label>
                                 <input type="text" name="relative_phone" value="{{old('relative_phone', $user->relative_phone)}}" class="form-control">
                             </div>
-                            <div class="col">
+                            <div class="col ichack-input">
                                 <label class="mr-sm-2">النوع</label>
                                 <div class="form-control row mb-3" style="display:flex !important; margin:0;">
                                     <div class="col">
-                                        <input type="radio" name="gender" value="1" {{old('gender')=='1' ? 'checked='.'"'.'checked='.'"' : ''}} {{$user->gender == 1 ? 'checked' : ''}}> ذكر
+                                        <input type="radio" class="minimal-red" name="gender" value="1" {{old('gender')=='1' ? 'checked='.'"'.'checked='.'"' : ''}} {{$user->gender == 1 ? 'checked' : ''}}> ذكر
                                     </div>
                                     <div class="col">
-                                        <input type="radio" name="gender" value="2" {{old('gender')=='2' ? 'checked='.'"'.'checked='.'"' : ''}} {{$user->gender == 2 ? 'checked' : ''}}> أنثى
+                                        <input type="radio" class="minimal-red" name="gender" value="2" {{old('gender')=='2' ? 'checked='.'"'.'checked='.'"' : ''}} {{$user->gender == 2 ? 'checked' : ''}}> أنثى
                                     </div>
                                 </div>
                             </div>
@@ -156,25 +161,25 @@
                         </div>
 
                         <div class="row mb-3">
-                            <div class="col">
+                            <div class="col ichack-input">
                                 <label class="mr-sm-2 d-block">الشهادة الصحية</label>
                                 <div class="form-control row mb-3" style="display:flex !important; margin:0;">
                                     <div class="col">
-                                        <input type="radio" name="health_insurance" value="1" {{old('health_insurance')=='1' ? 'checked='.'"'.'checked='.'"' : ''}} {{$user->health_insurance == 1 ? 'checked' : ''}}>  يوجد
+                                        <input type="radio" class="minimal-red" name="health_insurance" value="1" {{old('health_insurance')=='1' ? 'checked='.'"'.'checked='.'"' : ''}} {{$user->health_insurance == 1 ? 'checked' : ''}}>  يوجد
                                     </div>
                                     <div class="col">
-                                        <input type="radio" name="health_insurance" value="2" {{old('health_insurance')=='2' ? 'checked='.'"'.'checked='.'"' : ''}} {{$user->health_insurance == 2 ? 'checked' : ''}}> لا يوجد
+                                        <input type="radio" class="minimal-red" name="health_insurance" value="2" {{old('health_insurance')=='2' ? 'checked='.'"'.'checked='.'"' : ''}} {{$user->health_insurance == 2 ? 'checked' : ''}}> لا يوجد
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col ichack-input">
                                 <label class="mr-sm-2 d-block">الفيش و التشبيه</label>
                                 <div class="form-control row mb-3" style="display:flex !important; margin:0;">
                                     <div class="col">
-                                        <input type="radio" name="antecedents" value="1" {{old('antecedents')=='1' ? 'checked='.'"'.'checked='.'"' : ''}} {{$user->antecedents == 1 ? 'checked' : ''}}> يوجد
+                                        <input type="radio" class="minimal-red" name="antecedents" value="1" {{old('antecedents')=='1' ? 'checked='.'"'.'checked='.'"' : ''}} {{$user->antecedents == 1 ? 'checked' : ''}}> يوجد
                                     </div>
                                     <div class="col">
-                                        <input type="radio" name="antecedents" value="2" {{old('antecedents')=='2' ? 'checked='.'"'.'checked='.'"' : ''}} {{$user->antecedents == 2 ? 'checked' : ''}}> لا يوجد
+                                        <input type="radio" class="minimal-red" name="antecedents" value="2" {{old('antecedents')=='2' ? 'checked='.'"'.'checked='.'"' : ''}} {{$user->antecedents == 2 ? 'checked' : ''}}> لا يوجد
                                     </div>
                                 </div>
                             </div>
@@ -211,11 +216,25 @@
                                 </select>
                             </div>
                         </div>
-
+                        <div class="col-md-12">
+                            <label for="">اختر الصلاحيات</label>
+                            <div class="form-group ichack-input">
+                                @if (isset($permissions))
+                                @foreach ($permissions as $permission)
+                                    <label>
+                                    <input type="checkbox" class="minimal" value="{{ $permission->name }}" {{ ($user->hasPermissionTo($permission->name) == true ? 'checked' : '' ) }} name="permission_users[]">
+                                    {{ $permission->name}}
+                                    </label>
+                                    @endforeach
+                            @endif
+                              </div>
+                        </div>
                         <br><br>
 
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">حفظ</button>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fa fa-edit"></i> تعديل
+                             </button>
                         </div>
                     </form>
                 </div>
@@ -226,7 +245,20 @@
 @section('js')
     @toastr_js
     @toastr_render
-
+    <script src="{{ url('admin_new/assets/vendor_components/bootstrap-select/dist/js/bootstrap-select.js') }}"></script>
+	<script src="{{ url('admin_new/assets/vendor_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js') }}"></script>
+	<script src="{{ url('admin_new/assets/vendor_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js') }}"></script>
+    <script src="{{ url('admin_new/assets/vendor_components/select2/dist/js/select2.full.js') }}"></script>
+    <script src="{{ url('admin_new/assets/vendor_plugins/input-mask/jquery.inputmask.js')}}"></script>
+	<script src="{{ url('admin_new/assets/vendor_plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+	<script src="{{ url('admin_new/assets/vendor_plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
+	<script src="{{ url('admin_new/assets/vendor_components/moment/min/moment.min.js')}}"></script>
+	<script src="{{ url('admin_new/assets/vendor_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+	<script src="{{ url('admin_new/assets/vendor_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
+	<script src="{{ url('admin_new/assets/vendor_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js')}}"></script>
+	<script src="{{ url('admin_new/assets/vendor_plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
+    <script src="{{ url('admin_new/assets/vendor_plugins/iCheck/icheck.min.js') }}"></script>
+    <script src="{{ url('admin_new/js/pages/advanced-form-element.js') }}"></script>
     <script>
         $(document).ready(function(){
             $(".alert").delay(5000).slideUp(300);

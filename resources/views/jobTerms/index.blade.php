@@ -30,8 +30,7 @@
     <!-- row -->
     <div class="row">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
+            <div class="box">
 
                     <h6><span style="border-radius: 5px; padding:5px"> <a href="{{route('returnJob',$job_id)}}"><span style="color:#8ea0db;">الوظيفة</span></a> / شروط الوظيفة </span></h6>
 
@@ -45,10 +44,12 @@
                         </div>
                     @endif
 
-                    <a href="{{route('jobTerms.create',[$job_id, $company_id])}}" class="button x-small">
-                        إضافة شرط للوظيفة
-                    </a>
-
+                
+                    <div class="box-header with-border">
+                        <a href="{{route('jobTerms.create',[$job_id, $company_id])}}" class="btn btn-warning">
+                            إضافة شرط للوظيفة
+                        </a>
+                    </div>
                     @foreach(['danger','warning','success','info'] as $msg)
                         @if(Session::has('alert-'.$msg))
                             <div class="alert alert-{{$msg}}">
@@ -59,10 +60,9 @@
 
                     <br><br>
 
-
+                    <div class="box-body">
                     <div class="table-responsive">
-                        <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
-                               style="text-align: center">
+                        <table id="example5" class="table table-bordered table-striped" style="width:100%">
                             <thead>
                             <tr>
                                 <th>#</th>

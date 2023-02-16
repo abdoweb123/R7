@@ -13,6 +13,7 @@ use App\Http\Controllers\Traits\CheckApi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+
 class OfferController extends Controller
 {
 
@@ -71,7 +72,7 @@ class OfferController extends Controller
         $validator = Validator::make($request->all(), [
             'job_id' => 'required',
         ],[
-            'full_name.required' => 'الوظيفه مطلوبه',
+            'job_id.required' => 'الوظيفه مطلوبه',
         ]);
         $user_id=Auth::id();
         $offer = Offer::create([
@@ -82,6 +83,13 @@ class OfferController extends Controller
             'accepted'=>0,
         ]);
         if($offer){
+            $user=User::find($user_id);
+            $job=Job::find($request->job_id);
+            $FcmToken="f2n6ysYkTMi1E83f35TJ0D:APA91bFnUZL_4SivVBcLubegZq9Q4-jfZ3g6xdOn66YMtxz35oXWWQQPjDhQALmsl28S_mTmG3k2u1yYlmCQLQtav4YofVTbie155DU-QpQeVRvKjcEBOKiEPAr2EEmaTX0eBVbuUrK0";
+            $title='العروض المقدمه';
+            $body='تم اضافه عرض لوظيفه' .'('. @$job->job_description.')'. 'من قبل ' . @$user->full_name;
+            send_notifaction($FcmToken,$title,$body,$user_id,$request->job_id,0);
+
             $data_json['status']=true;
             $data_json['message']='تم الاضافه بنجاح';
             $data_json['data']=$offer;

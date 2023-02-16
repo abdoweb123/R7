@@ -25,9 +25,11 @@ class UserController extends Controller
      */
     public function login(){
         if(is_numeric(request('phone_email'))){
-            if(Auth::attempt(['phone' => request('phone_email'), 'password' => request('password')])){
-                $user_id = Auth::id();
+            if(Auth::guard('web')->attempt(['phone' => request('phone_email'), 'password' => request('password')])){
+                $user_id = Auth::guard('web')->id();
                 $data_fc_token = ApiUser::with('city:id,name','nationality:id,name','workingArea:id,name','specilaty:id,name','reachedUs')->find($user_id);
+                $data_fc_token->device_token=request('fcm_token');
+                $data_fc_token->save();
                 $data_fc_token['token'] =  $data_fc_token->createToken('real-estate')->accessToken;
                 $data_json['status']=true;
                 $data_json['message']='';
@@ -44,11 +46,13 @@ class UserController extends Controller
                 return response()->json($data_json, $this->successStatus);
             }
         }else{
-            if(Auth::attempt(['email' => request('phone_email'), 'password' => request('password')])){
-                $user_id = Auth::id();
+            if(Auth::guard('web')->attempt(['email'=> request('phone_email'), 'password'=> request('password')])){
+                $user_id = Auth::guard('web')->id();
 
                 $user = ApiUser::with('city:id,name','nationality:id,name','workingArea:id,name','specilaty:id,name','reachedUs')->find($user_id);
                 $data_fc_token=$user;
+                $data_fc_token->device_token=request('fcm_token');
+                $data_fc_token->save();
                 $data_fc_token['token'] =  $user->createToken('real-estate')->accessToken;
 
                 $data_json['status']=true;
@@ -400,6 +404,8 @@ class UserController extends Controller
 
 
         $input['password'] = Hash::make($input['password']);
+        $input['device_token'] =request('fcm_token');
+        
         $data = User::create($input);
 
         $data['token'] =  $data->createToken('real-estate')->accessToken;

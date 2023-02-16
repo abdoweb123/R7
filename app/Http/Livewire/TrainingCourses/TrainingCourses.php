@@ -23,14 +23,19 @@ class TrainingCourses extends Component
     }
     public function render()
     {
-        if (auth('company')->user()->role_id == 1) {
+        if (auth('company')->user()->role_id == 1 || auth('company')->user()->parent_id == 1) {
             $results=TrainingCourse::with('compnay')->paginate();
         }else{
-            $results=TrainingCourse::with('compnay')->whereCompanyId(auth()->guard('company')->user()->id)->paginate();
+            if(auth('company')->user()->role_id == 2){
+                $company_id=auth('company')->user()->id;
+            }else{
+                $company_id=auth('company')->user()->parent_id;
+            }
+            $results=TrainingCourse::with('compnay')->whereCompanyId($company_id)->paginate();
         }
         return view('livewire.training-courses.training-courses',[
             'results'=>$results,
-        ])->extends('layouts.master');
+        ])->extends('layouts.master',['data_table'=>true]);
     }
   
     public function edit_form($id)
@@ -61,27 +66,10 @@ class TrainingCourses extends Component
         $this->user_delete_id=$id;
         $this->emit('showDelete');
     }
-    // public function delete_at()
-    // {
-    //     $data=TrainingCourse::find($this->user_delete_id);
-    //     dd('good');
-    //     if ($data->deleted_at != null) {
-    //         $data->deleted_at= null;
-    //     }else{
-    //         $data->deleted_at= now();
-    //     }
-    //     $data->save();
-    //     session()->flash('success_message','deleted successfully');
-    //     $this->emit('remove_modal');
-    // }
+  
     public function delete_at()
     {
         $data=TrainingCourse::find($this->user_delete_id);
-        // if ($data->deleted_at != null) {
-        //     $data->deleted_at= null;
-        // }else{
-        //     $data->deleted_at= now();
-        // }
         $data->delete();
         session()->flash('success_message','deleted successfully');
         $this->emit('remove_modal');

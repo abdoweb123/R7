@@ -54,7 +54,7 @@ class JobTaskController extends Controller
     /*** edit function ***/
     public function edit(JobTask $jobTask)
     {
-        $data['companies'] = Company::select('id','company_name')->get();
+        $data['companies'] = Company::where('role_id',2)->select('id','company_name')->get();
         $data['jobs'] = Job::select('id','job_description')->get();
         return view('jobTasks.edit', compact('data','jobTask'));
     }

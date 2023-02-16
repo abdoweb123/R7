@@ -14,8 +14,7 @@
         <!-- row -->
         <div class="row">
             <div class="col-xl-12 mb-30">
-                <div class="card card-statistics h-100">
-                    <div class="card-body">
+                <div class="box">
                         @foreach(['danger','warning','success','info'] as $msg)
                             @if(Session::has('alert-'.$msg))
                                 <div class="alert alert-{{$msg}}">
@@ -26,15 +25,18 @@
 
                         <br><br>
 
-                        <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
-                            {{ $showForm == true ? 'عرض الكل ' : 'اضافه ' . $tittle }}
-                            </button>
+                        <div class="box-header with-border">
+                            <a href="javascrip:void(0);" class="btn btn-warning mb-10" wire:click='switch'>
+                                {{ $showForm == true ? 'عرض الكل ' : 'اضافه ' . $tittle }}
+                            </a>
+                        </div>
+
 @if ($showForm == true)
     <livewire:user-trainings.edit >
 @else
+<div class="box-body">
                         <div class="table-responsive">
-                            <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
-                                   style="text-align: center" >
+                            <table id="example5" class="table table-bordered table-striped" style="width:100%">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -53,7 +55,7 @@
                                             <td>{{ @$result->user->full_name }}</td>
                                             <td>{{ @$result->traning->content }}</td>
                                             <td style="width: 15%">
-                                                <button class="btn btn-primary"  title="تعديل"  wire:click='edit_form({{ $result->id }})'>
+                                                <button class="btn btn-warning"  title="تعديل"  wire:click='edit_form({{ $result->id }})'>
                                                     <i  class="fa fa-edit"></i>
                                                 </button>
                                                 <button class="btn btn-danger" wire:click='make_delete({{ $result->id }})' title="حذف">

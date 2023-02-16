@@ -14,8 +14,8 @@
         <!-- row -->
         <div class="row">
             <div class="col-xl-12 mb-30">
-                <div class="card card-statistics h-100">
-                    <div class="card-body">
+                <div class="box">
+                    <div class="box-body">
                         @foreach(['danger','warning','success','info'] as $msg)
                             @if(Session::has('alert-'.$msg))
                                 <div class="alert alert-{{$msg}}">
@@ -28,18 +28,24 @@
                         <span class="text-muted mt-3 font-weight-bold font-size-sm">عدد الريكويست({{ $results->count() }})</span>
                         <br><br>
                         <div class="row">
-                                <div class="col-md-6">
-                                    <form wire:submit.prevent="report" >
-                                        <div class="form-group row">
-                                            <input class="form-control col-md-3 col-sm-6" type="date" placeholder="date-start" wire:model.lazy='start_date' />
-                                            <input class="form-control col-md-3 col-sm-6" type="date" placeholder="date-end" wire:model.lazy='end_date'/>
-                                            <button class="btn btn-info font-weight-bolder font-size-sm col-md-2 ">تقرير</button>
+                            <div class="col-md-6">
+                                <form wire:submit.prevent="report" >
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input class="form-control" type="date" placeholder="date-start" wire:model.lazy='start_date' />
                                         </div>
-                                    </form>
-                                </div>
+                                        <div class="col-md-4">
+                                            <input class="form-control" type="date" placeholder="date-end" wire:model.lazy='end_date'/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button class="btn btn-info font-weight-bolder font-size-sm  btn-sm">تقرير</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                                 <div class="col-md-6">
                                     <div class="row">
-                                        @if(auth('company')->user()->role_id == 1)
+                                        @if(@auth('company')->user()->role_id == 1)
                                         <div class="col-md-4">
                                             <select wire:model='company_id' class="form-control mr-sm-2 p-2" style="width: 100%" wire:change="company_filter">
                                                 <option value="">اختر الشركه</option>
@@ -79,8 +85,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
-                                   style="text-align: center" >
+                            <table id="example5" class="table table-bordered table-striped" style="width:100%">
                                 <thead>
                                 <tr>
                                     <th>#</th>

@@ -31,9 +31,7 @@
     <!-- row -->
     <div class="row">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
-
+            <div class="box">
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -54,14 +52,16 @@
                     @endforeach
 
 
-                    <a href="{{route('companies.create')}}" class="button x-small">
-                        إضافة شركة
-                    </a>
+                  
+                    <div class="box-header with-border">
+                        <a href="{{route('companies.create')}}" class="btn btn-warning">
+                            إضافة شركة
+                        </a>
+                    </div>
                     <br><br>
-
+                    <div class="box-body">
                     <div class="table-responsive">
-                        <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
-                               style="text-align: center">
+                        <table id="example5" class="table table-bordered table-striped" style="width:100%">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -82,15 +82,15 @@
 
                                     <td>{{ $item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
                                     <td>
-                                        <a type="button" href="{{route('companies.edit',$item->id)}}" class="process">
+                                        <a type="button" href="{{route('companies.edit',$item->id)}}" class="btn btn-default btn-sm">
                                            <i style="color:cadetblue; font-size:18px;" class="fa fa-edit"></i></a>
 
-                                        <button type="button" class="process"
-                                                data-toggle="modal" data-target="#delete{{ $item->id }}" title="delete">
-                                           <i style="color:red; font-size:18px;" class="fa fa-trash"></i></button>
+                                           <button type="button" class="btn btn-default btn-sm" data-bs-toggle="modal" data-bs-target="#delete{{ $item->id }}">
+                                            <i class="fa fa-trash"></i>
+                                          </button>
 
-                                        <a type="button" href="{{route('companies.show',$item->id)}}" class="process">
-                                            <i style="color:goldenrod; font-size:18px;" class="fa fa-eye"></i></a>
+                                        <a type="button" href="{{route('companies.show',$item->id)}}" class="btn btn-default btn-sm">
+                                            <i  class="fa fa-eye"></i></a>
                                     </td>
                                 </tr>
 

@@ -32,9 +32,7 @@
     <!-- row -->
     <div class="row">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
-
+            <div class="box">
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -55,14 +53,16 @@
                     @endforeach
 
 
-                    <a href="{{route('jobs.create')}}" class="button x-small">
-                        إضافة وظيفة
-                    </a>
+                    
+                    <div class="box-header with-border">
+                        <a href="{{route('jobs.create')}}" class="btn btn-warning">
+                            إضافة وظيفة
+                        </a>
+                    </div>
                     <br><br>
-
+                    <div class="box-body">
                     <div class="table-responsive">
-                        <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
-                               style="text-align: center">
+                        <table id="example5" class="table table-bordered table-striped" style="width:100%">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -88,46 +88,33 @@
                                     <td>{{$item->end_time}}</td>
                                     <td>{{ $item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
                                     <td>
-                                        <div class="dropdown show">
-                                            <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                العمليات
-                                            </a>
+                                        {{-- <div class="dropdown show"> --}}
+                                            {{-- <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                               <i class="fa fa-angle-left pull-left"></i>  العمليات
+                                            </a> --}}
 
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="{{route('jobs.show',$item->id)}}">
-                                                    <i class="fa fa-eye" style="color: #4d3f15"></i>&nbsp عرض بيانات الوظيفة
+                                            {{-- <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"> --}}
+                                                {{-- <a  href="{{route('jobs.show',$item->id)}}" title="عرض بيانات الوظيفة">
+                                                    <i class="fa fa-eye" style="color: #ffc107"></i>&nbsp 
+                                                </a> --}}
+                                                <a  href="{{route('offers.index',[$item->id, $item->company->id])}}" title="عرض بيانات الوظيفة">
+                                                    <i class="fa fa-eye" style="color: #ffc107"></i>&nbsp 
                                                 </a>
 
-                                                <a class="dropdown-item" href="{{route('jobs.edit',$item->id)}}">
-                                                    <i class="fa fa-edit" style="color: #ffc107"></i>&nbsp تعديل بيانات الوظيفة
+                                                <a  href="{{route('jobs.edit',$item->id)}}" title="تعديل بيانات الوظيفة">
+                                                    <i class="fa fa-edit" style="color: #ffc107"></i>&nbsp 
                                                 </a>
 
-                                                <a class="dropdown-item" data-toggle="modal" data-target="#delete{{ $item->id }}">
-                                                    <i class="fa fa-trash" style="color: red"></i>&nbsp حذف الوظيفة
+                                                <a  data-toggle="modal" data-target="#delete{{ $item->id }}" title=" حذف الوظيفة">
+                                                    <i class="fa fa-trash" style="color: red"></i>&nbsp
                                                 </a>
 
-                                                <a class="dropdown-item" href="{{route('jobTasks.index',[$item->id, $item->company->id])}}">
-                                                    <i class="fa fa-eye" style="color: goldenrod"></i>&nbsp مهمات الوظيفة
-                                                </a>
+                                              
 
-                                                <a class="dropdown-item" href="{{route('jobRequirements.index',[$item->id , $item->company->id])}}">
-                                                    <i class="fa fa-eye" style="color: #68511b"></i>&nbsp متطلبات الوظيفة
-                                                </a>
-
-                                                <a class="dropdown-item" href="{{route('jobTerms.index',[$item->id, $item->company->id])}}">
-                                                    <i class="fa fa-eye" style="color: #cbb175"></i>&nbsp شروط الوظيفة
-                                                </a>
-
-                                                <a class="dropdown-item" href="{{route('offers.index',[$item->id, $item->company->id])}}">
-                                                    <i class="fa fa-eye" style="color: #493d1e"></i>&nbsp العروض المقدمة
-                                                </a>
-
-                                            </div>
-                                        </div>
+                                            {{-- </div> --}}
+                                        {{-- </div> --}}
                                     </td>
                                 </tr>
-
-
                                 <!--  page of delete_modal_city -->
                                 @include('jobs.delete')
 
@@ -149,7 +136,6 @@
 @section('js')
     @toastr_js
     @toastr_render
-
     <script>
         $(document).ready(function(){
             $(".alert").delay(5000).slideUp(300);

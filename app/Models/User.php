@@ -7,16 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
-
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Role;
 class User extends Authenticatable
-{
-    use HasFactory , SoftDeletes,HasApiTokens;
-
+{ 
+    use HasFactory , SoftDeletes,HasApiTokens,HasRoles;
+    protected $guard = 'user';
     protected $fillable = ['country_id', 'phone', 'profile_image', 'full_name', 'nationality_id',
                             'gender', 'birthDate', 'email', 'id_number', 'identity_image',
                             'relative_phone', 'city_id', 'area', 'workingArea_id', 'health_insurance',
                             'antecedents', 'reachedUs_id', 'arabic_video_url', 'english_video_url','insurance_image','antecedents_image'
-                            ,'active', 'specialty_id','password'
+                            ,'active', 'specialty_id','password','device_token'
                           ];
 
 

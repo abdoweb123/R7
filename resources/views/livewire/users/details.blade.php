@@ -88,7 +88,7 @@
 
                     <div class="box">
                         <!--begin::Actions-->
-                        <div class="my-lg-0 my-1">
+                        <div class="my-lg-0 my-1" style="text-align: end;">
                                 {{-- <button type="button" class="btn btn-sm btn-warning font-weight  mr-2" data-toggle="modal" data-target="#exampleModal" wire:click='defin_student_id({{ @$result->id}})'>
                                     {{ __('ms_lang.wraning') }}
                                 </button> --}}

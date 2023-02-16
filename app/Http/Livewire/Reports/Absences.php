@@ -23,24 +23,37 @@ class Absences extends Component
     {
         $this->tittle='الغياب و الحضور';
         $dataa=JobTask::where('user_id','!=',null)->whereMonth('created_at',date('m'));
-        if (auth('company')->user()->role_id != 1) {
-            $dataa->whereCompanyId(auth('company')->user()->id);
+        if (auth('company')->user()->role_id == 1 || auth('company')->user()->parent_id == 1) {
+          
+        }else{
+            if(auth('company')->user()->role_id == 2){
+                $company_id=auth('company')->user()->id;
+            }else{
+                $company_id=auth('company')->user()->parent_id;
+            }
+            $dataa->whereCompanyId($company_id);
         }
         $this->results=$dataa->take(50)->get();
+      
     }
     public function render()
     {
-        if (auth('company')->user()->role_id == 1) {
-            $users = User::select('id','full_name')->get();
-            $companies=Company::select('id','company_name')->where('id','!=','1')->get();
+        if (auth('company')->user()->role_id == 1 || auth('company')->user()->parent_id == 1) {
+            $companies=Company::select('id','company_name')->where('role_id',2)->get();
+            $users=User::select('id','full_name')->get();
         }else{
-            $users=User::select('id','full_name')->whereHas('job',function($job){
-                $job->whereCompanyId(auth('company')->user()->id);
+            if(auth('company')->user()->role_id == 2){
+                $company_id=auth('company')->user()->id;
+            }else{
+                $company_id=auth('company')->user()->parent_id;
+            }
+            $users=User::select('id','full_name')->whereHas('job',function($job) use ($company_id){
+                $job->whereCompanyId($company_id);
             });
             $companies=null;
         }
         
-        return view('livewire.reports.absences',compact('companies','users'))->extends('layouts.master');
+        return view('livewire.reports.absences',compact('companies','users'))->extends('layouts.master',['data_table'=>true]);
     }
     public function download_report_one()
     {
@@ -67,8 +80,15 @@ class Absences extends Component
     {
         if($this->start_date != null){
             $dataa= JobTask::where('user_id','!=',null)->whereBetween('created_at',[$this->start_date,$this->end_date]);
-            if (auth('company')->user()->role_id != 1) {
-                $dataa->whereCompanyId(auth('company')->user()->id);
+            if (auth('company')->user()->role_id == 1 || auth('company')->user()->parent_id == 1) {
+          
+            }else{
+                if(auth('company')->user()->role_id == 2){
+                    $company_id=auth('company')->user()->id;
+                }else{
+                    $company_id=auth('company')->user()->parent_id;
+                }
+                $dataa->whereCompanyId($company_id);
             }
             $this->results=$dataa->get();
         }

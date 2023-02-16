@@ -16,9 +16,14 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->guard('company')->user()->role_id == 1) {
-            return $next($request);
-        }
+        // if (auth()->user() == null) {
+            if (auth()->guard('company')->user()->role_id == 1) {
+                return $next($request);
+            }elseif (auth()->guard('company')->user()->role_id == 3) {
+                return $next($request);
+            }
+        // }
+        
         abort(403);
     }
 }

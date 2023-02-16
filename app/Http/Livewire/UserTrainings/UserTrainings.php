@@ -23,10 +23,20 @@ class UserTrainings extends Component
     }
     public function render()
     {
-        $results=EmployeeTraining::with('user','company','traning')->paginate();
+        if (auth('company')->user()->role_id == 1 || auth('company')->user()->parent_id == 1) {
+            $results=EmployeeTraining::with('user','company','traning')->paginate();
+        }else{
+            if(auth('company')->user()->role_id == 2){
+                $company_id=auth('company')->user()->id;
+            }else{
+                $company_id=auth('company')->user()->parent_id;
+            }
+            $results=EmployeeTraining::with('user','company','traning')->whereCompanyId($company_id)->paginate();
+        }
+        
         return view('livewire.user-trainings.user-trainings',[
             'results'=>$results,
-        ])->extends('layouts.master');
+        ])->extends('layouts.master',['data_table'=>true]);
     }
   
     public function edit_form($id)

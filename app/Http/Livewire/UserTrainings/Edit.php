@@ -24,7 +24,7 @@ class Edit extends Component
     ];
     public function render()
     {
-        $companies=Company::select('id','company_name')->get();
+        $companies=Company::select('id','company_name')->where('role_id',2)->get();
         $employees=User::select('id','full_name')->get();
         $tranings=TrainingCourse::select('id','content')->get();
         return view('livewire.user-trainings.edit',compact('companies','employees','tranings'))->extends('layouts.master');

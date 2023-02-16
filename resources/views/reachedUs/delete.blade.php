@@ -8,10 +8,8 @@
                     id="exampleModalLabel">
                     حذف وسيلة التواصل
                 </h5>
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
             </div>
             <div class="modal-body">
                 <form action="{{ route('reachedUs.destroy',$item->id) }}" method="post">
@@ -20,8 +18,8 @@
                    <p> هل أنت متأكد من عملية الحذف ؟</p>
                     <input id="id" type="hidden" name="id" class="form-control" value="{{ $item->id }}">
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
-                        <button type="submit" class="btn btn-danger">حفظ</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                        <button type="submit" class="btn btn-danger">حذف</button>
                     </div>
                 </form>
             </div>

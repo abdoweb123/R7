@@ -29,7 +29,7 @@ class UserUpdateRequest extends FormRequest
             'nationality_id' => 'required',
             'country_id' => 'required',
             'city_id' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:users,email,'.$this->user->id,
             'area' => 'required',
             'workingArea_id' => 'required',
             'specialty_id' => 'required',

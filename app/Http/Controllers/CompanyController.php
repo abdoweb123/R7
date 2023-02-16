@@ -17,7 +17,7 @@ class CompanyController extends Controller
     /*** index function ***/
     public function index()
     {
-        $companies = Company::latest()->paginate(10);
+        $companies = Company::where('role_id',2)->latest()->paginate(10);
         return view('companies.index', compact('companies'));
     }
 
@@ -102,7 +102,7 @@ class CompanyController extends Controller
         $company = new Company();
         $company->company_name = ['en' => $request->company_name_en, 'ar' => $request->company_name_ar];
         $company->company_email = $request->company_email;
-        $company->company_password = Hash::make($request['company_password']);
+        $company->password = Hash::make($request['company_password']);
         $company->company_phone = $request->company_phone;
         $company->city_id = $request->city_id;
         $company->pre_fullName = $request->pre_fullName;
@@ -118,9 +118,10 @@ class CompanyController extends Controller
         $company->jobs = $request->jobs;
         $company->contract_image = $date['contract_image'];
         $company->active = 1;
-        $company->save();
-
-
+        $check=$company->save();
+        if($check){
+            $company->syncPermissions([9,10,11,12,13,14,15,16,17,26]);
+        }
         return redirect()->route('companies.index')->with('alert-success','تم تسجيل البيانات بنجاح');
     }
 
@@ -286,7 +287,7 @@ class CompanyController extends Controller
 
         if ($request->company_password !== $company->company_password)
         {
-            $company->company_password = Hash::make($request['company_password']);
+            $company->password = Hash::make($request['company_password']);
         }
 
         $company->company_phone = $request->company_phone;
@@ -297,8 +298,13 @@ class CompanyController extends Controller
         $company->services = $request->services;
         $company->jobs = $request->jobs;
         $company->active = $request->active;
-        $company->update();
-
+        $check=$company->update();
+        if ($request->has('profile')) {
+            return back()->with('alert-success','تم تعديل البيانات بنجاح');
+        }
+        if($check){
+            $company->syncPermissions([9,10,11,12,13,14,15,16,17,26]);
+        }
         return redirect()->route('companies.index')->with('alert-success','تم تعديل البيانات بنجاح');
     }
 

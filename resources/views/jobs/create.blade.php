@@ -41,12 +41,12 @@
     @endforeach
 
 
-    <!-- row mb-3 -->
+    <!-- row mb-3 --> 
     @if(!auth('company'))
     <div class="row mb-3">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
+            <div class="box">
+                <div class="box-body">
                     <form action="{{ route('jobs.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
@@ -153,8 +153,8 @@
     @elseif(auth('company'))
     <div class="row mb-3">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
+            <div class="box">
+                <div class="box-body">
                     <form action="{{ route('jobs.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
@@ -243,7 +243,7 @@
                         <br><br>
 
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">حفظ</button>
+                            <button type="submit" class="btn btn-warning">حفظ</button>
                         </div>
                     </form>
                 </div>

@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Support extends Model
 {
     use HasFactory;
+    public function admin()
+    {
+        return $this->hasOne(Company::class,'id','admin_id');
+    }
 }

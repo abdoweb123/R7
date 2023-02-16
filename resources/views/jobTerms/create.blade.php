@@ -46,8 +46,8 @@
     <!-- row mb-3 -->
     <div class="row mb-3">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
+            <div class="box">
+                <div class="box-body">
                     <form action="{{ route('jobTerms.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="job_id" value="{{$job_id}}">
@@ -68,7 +68,7 @@
                         <br><br>
 
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">حفظ</button>
+                            <button type="submit" class="btn btn-warning">حفظ</button>
                         </div>
                     </form>
                 </div>
@@ -78,11 +78,10 @@
 
     <div class="row mb-3">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
+            <div class="box">
+                <div class="box-body">
                     <div class="table-responsive">
-                        <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
-                               style="text-align: center">
+                        <table id="example5" class="table table-bordered table-striped" style="width:100%">
                             <thead>
                             <tr>
                                 <th>#</th>

@@ -31,9 +31,7 @@
     <!-- row -->
     <div class="row">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
-
+            <div class="box">
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -54,11 +52,14 @@
                     @endforeach
 
 
-                    <a href="{{route('users.create')}}" class="button x-small">
-                        إضافة موظف
-                    </a>
+                   
+                    <div class="box-header with-border">
+                        <a href="{{route('users.create')}}" class="btn btn-primary">
+                            إضافة موظف
+                        </a>
+                    </div>
                     <br><br>
-
+                    <div class="box-body">
                     <div class="table-responsive">
                         <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
                                style="text-align: center">
@@ -71,8 +72,7 @@
                                 <th>الهاتف الشخصي</th>
                                 <th>الحالة</th>
                                 <th>اضافه تحذير</th>
-                                <th> التفاصيل</th>
-                                <th>العمليات</th>
+                                <th>العمليات</th> 
                             </tr>
                             </thead>
                             <tbody>
@@ -85,23 +85,33 @@
                                     <td>{{$item->phone}}</td>
                                     <td>{{ $item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
                                     <td>
-                                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add_wraning{{ $item->id }}" title="اضافه تحذير">اضافه تحذير</button>
+                                        <button type="button"  class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#add_wraning{{ $item->id }}" title="اضافه تحذير">
+                                            اضافه تحذير
+                                          </button>
                                     </td>
-                                    <td>
-                                    <a href="{{url('user-details',$item->id)}}" class="btn btn-info btn-sm">
-                                           التفاصيل</a>
-                                    </td>
+                                 
                                     <td>
                                         <a type="button" href="{{route('users.edit',$item->id)}}" class="process">
                                            <i style="color:cadetblue; font-size:18px;" class="fa fa-edit"></i></a>
 
-                                        <a type="button" href="{{route('users.show',$item->id)}}" class="process">
+                                        <a type="button" href="{{url('user-details',$item->id)}}" class="process">
                                             <i style="color:goldenrod; font-size:18px;" class="fa fa-eye"></i></a>
 
-                                        <button type="button" class="process"
-                                                data-toggle="modal" data-target="#delete{{ $item->id }}" title="حذف">
-                                           <i style="color:red; font-size:18px;" class="fa fa-trash"></i></button>
+                                            <button type="button" class="btn btn-default btn-sm" data-bs-toggle="modal" data-bs-target="#delete{{ $item->id }}">
+                                                <i class="fa fa-trash"></i>
+                                              </button>
                                     </td>
+                                    {{-- <td>
+                                        <a type="button" href="{{route('companies.edit',$item->id)}}" class="btn btn-default btn-sm">
+                                           <i style="color:cadetblue; font-size:18px;" class="fa fa-edit"></i></a>
+
+                                           <button type="button" class="btn btn-default btn-sm" data-bs-toggle="modal" data-bs-target="#delete{{ $item->id }}">
+                                            <i class="fa fa-trash"></i>
+                                          </button>
+
+                                        <a type="button" href="{{route('companies.show',$item->id)}}" class="btn btn-default btn-sm">
+                                            <i  class="fa fa-eye"></i></a>
+                                    </td> --}}
                                 </tr>
 
 

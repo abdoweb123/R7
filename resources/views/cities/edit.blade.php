@@ -7,9 +7,8 @@
                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
                     تعديل بيانات المدينة
                 </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
             </div>
             <div class="modal-body">
                 <!-- add_form -->
@@ -44,7 +43,7 @@
                             <select name="country_id" class="form-control">
                                 <option disabled selected>-- اختر --</option>
                                 @foreach($countries as $country)
-                                    <option value="{{$country->id}}" {{$country->id == $item->country->id ? 'selected' : ''}}>{{$country->name}}</option>
+                                    <option value="{{@$country->id}}" {{@$country->id == @$item->country->id ? 'selected' : ''}}>{{$country->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -52,7 +51,7 @@
                     <br><br>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
                         <button type="submit" class="btn btn-success">إرسال</button>
                     </div>
                 </form>

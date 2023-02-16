@@ -43,8 +43,13 @@
     <!-- row mb-3 -->
     <div class="row mb-3">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h4 class="box-title">تعديل شركه </h4>
+                    {{-- <h6 class="box-subtitle">You can us the validation like what we did</h6> --}}
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body wizard-content">
                     <form action="{{ route('companies.update',$company->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -158,7 +163,12 @@
                         <br><br>
 
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">حفظ</button>
+                            <button type="button" class="btn btn-primary me-1">
+                                <i class="ti-trash"></i> مسح
+                              </button>
+                            <button type="submit" class="btn btn-warning">
+                               <i class="fa fa-edit"></i> تعديل
+                            </button>
                         </div>
                     </form>
                 </div>

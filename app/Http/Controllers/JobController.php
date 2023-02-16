@@ -9,7 +9,7 @@ use App\Models\Job;
 use App\Models\Specialty;
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use App\Models\Notification;
 class JobController extends Controller
 {
 
@@ -17,12 +17,37 @@ class JobController extends Controller
     public function index()
     {
        
-        if (auth('company')->user()->role_id == 1) {
+        if (auth('company')->user()->role_id == 1 || auth('company')->user()->parent_id == 1) {
             $data['jobs'] = Job::latest()->paginate(10);
         }else{
-            $data['jobs'] = Job::where('company_id',auth()->guard('company')->user()->id)->latest()->paginate(10);
+            if(auth('company')->user()->role_id == 2){
+                $company_id=auth('company')->user()->id;
+            }else{
+                $company_id=auth('company')->user()->parent_id;
+            }
+            $data['jobs'] = Job::where('company_id',$company_id)->latest()->paginate(10);
         }
         return view('jobs.index', compact('data'));
+    }
+
+    public function project_expaire()
+    {
+       
+        if (auth('company')->user()->role_id == 1 || auth('company')->user()->parent_id == 1) {
+            $data['jobs'] = Job::whereHas('jobTasks',function($q){
+                $q->where('end_date','<=',date('Y-m-d'));
+            })->latest()->paginate(10);
+        }else{
+            if(auth('company')->user()->role_id == 2){
+                $company_id=auth('company')->user()->id;
+            }else{
+                $company_id=auth('company')->user()->parent_id;
+            }
+            $data['jobs'] = Job::whereHas('jobTasks',function($q){
+                $q->where('end_date','<=',date('Y-m-d'));
+            })->where('company_id',$company_id)->latest()->paginate(10);
+        }
+        return view('jobs.project_expaire', compact('data'))->extends('layouts.master',['data_table'=>true]);
     }
 
 
@@ -61,7 +86,13 @@ class JobController extends Controller
         $job->finished = false;
         $job->active = true;
         $job->save();
-
+        if($job){
+            $noti=new Notification();
+            $noti->user_id=$job->id;
+            $noti->company_id=$request['company_id'];
+            $noti->notes='تم اضافه الوظيفه' .'('. $request['job_description'].')'. 'من قبل ' . auth('company')->user()->company_name;
+            $noti->save();
+        }
         return redirect()->route('jobTasks.create',[$job->id,$job->company_id])->with('alert-success','تم تسجيل البيانات بنجاح');
     }
 
@@ -70,7 +101,7 @@ class JobController extends Controller
     /*** edit function ***/
     public function edit(Job $job)
     {
-        $data['companies'] = Company::select('id','company_name')->get();
+        $data['companies'] = Company::where('role_id',2)->select('id','company_name')->get();
         $data['cities'] = City::select('id','name')->get();
         $data['specialties'] = Specialty::select('id','name')->get();
 

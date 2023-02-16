@@ -15,7 +15,7 @@ class JobTermsController extends Controller
     public function index($job_id,$company_id)
     {
         $jobTerms = JobTerms::where('job_id',$job_id)->latest()->paginate(10);
-        $companies = Company::select('id','company_name')->get();
+        $companies = Company::select('id','company_name')->where('role_id',2)->get();
         $jobs = Job::select('id','job_description')->get();
         return view('jobTerms.index', compact('companies','jobs','jobTerms','job_id','company_id'));
     }

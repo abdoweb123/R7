@@ -40,13 +40,12 @@
         @endif
     @endforeach
 
-
     <!-- row mb-3 -->
     @if(!auth('company'))
         <div class="row mb-3">
             <div class="col-xl-12 mb-30">
-                <div class="card card-statistics h-100">
-                    <div class="card-body">
+                <div class="box">
+                    <div class="box-body">
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="mr-sm-2">الشركة</label>
@@ -141,8 +140,8 @@
     @elseif(auth('company'))
         <div class="row mb-3">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
+            <div class="box">
+                <div class="box-body">
                     <div class="row mb-3">
                         <div class="col">
                             <label class="mr-sm-2">المدينة</label>

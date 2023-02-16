@@ -42,7 +42,6 @@ class OfferController extends Controller
         {
             $accepted = 2;
         }
-
         return view('offers.index', compact('offers','job_id','company_id','accepted','job','rewards','warnings','tasks'));
     }
 

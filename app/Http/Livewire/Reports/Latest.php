@@ -21,19 +21,29 @@ class Latest extends Component
     {
         $this->tittle=' جدول التاخير ';
         $dataa=JobTask::whereMonth('created_at',date('m'));
-        if (auth('company')->user()->role_id != 1) {
-            $dataa->whereCompanyId(auth('company')->user()->id);
+        if (auth('company')->user()->role_id != 1 || auth('company')->user()->parent_id != 1) {
+            if(auth('company')->user()->role_id == 2){
+                $company_id=auth('company')->user()->id;
+            }else{
+                $company_id=auth('company')->user()->parent_id;
+            }
+            $dataa->whereCompanyId($company_id);
         }
         $this->results=$dataa->take(50)->get();
     }
     public function render()
     {
-        if (auth('company')->user()->role_id == 1) {
+        if (auth('company')->user()->role_id == 1 || auth('company')->user()->parent_id == 1) {
             $users = User::select('id','full_name')->get();
-            $companies=Company::select('id','company_name')->where('id','!=','1')->get();
+            $companies=Company::select('id','company_name')->where('role_id',2)->get();
         }else{
-            $users=User::select('id','full_name')->whereHas('job',function($job){
-                $job->whereCompanyId(auth('company')->user()->id);
+            if(auth('company')->user()->role_id == 2){
+                $company_id=auth('company')->user()->id;
+            }else{
+                $company_id=auth('company')->user()->parent_id;
+            }
+            $users=User::select('id','full_name')->whereHas('job',function($job) use ($company_id){
+                $job->whereCompanyId($company_id);
             });
             $companies=null;
         }
@@ -69,8 +79,13 @@ class Latest extends Component
     {
         if($this->start_date != null){
             $dataa= JobTask::whereBetween('created_at',[$this->start_date,$this->end_date]);
-            if (auth('company')->user()->role_id != 1) {
-                $dataa->whereCompanyId(auth('company')->user()->id);
+            if (auth('company')->user()->role_id != 1 || auth('company')->user()->parent_id != 1) {
+                if(auth('company')->user()->role_id == 2){
+                    $company_id=auth('company')->user()->id;
+                }else{
+                    $company_id=auth('company')->user()->parent_id;
+                }
+                $dataa->whereCompanyId($company_id);
             }
             $this->results=$dataa->get();
         }

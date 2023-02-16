@@ -46,8 +46,8 @@ class LoginController extends Controller
     /*** login function ***/
     public function login(LoginRequest $request){
        if (Auth::guard('company')->attempt(['company_email' => $request->email, 'password' => $request->password])) {
-        return redirect()->to('dashboard');
-        } else{
+            return redirect()->to('dashboard');
+        }else{
             return redirect()->back()->withInput(['email','password'])->with('alert-danger', 'يوجد خطا في كلمة المرور او اسم المستخدم أو النوع');
         }
     }

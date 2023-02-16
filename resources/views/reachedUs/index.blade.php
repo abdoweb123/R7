@@ -30,8 +30,7 @@
     <!-- row -->
     <div class="row">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
+            <div class="box">
 
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -51,16 +50,16 @@
                             </div>
                         @endif
                     @endforeach
-
-
-                    <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        إضافة وسيلة تواصل
-                    </button>
+                    
+                    <div class="box-header with-border">
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            إضافة وسيلة تواصل
+                        </button>
+                    </div>
                     <br><br>
-
+                    <div class="box-body">
                     <div class="table-responsive">
-                        <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
-                               style="text-align: center">
+                        <table id="example5" class="table table-bordered table-striped" style="width:100%">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -77,13 +76,12 @@
                                     <td>{{ $item->getTranslation('name', 'ar') }}</td>
                                     <td>{{ $item->getTranslation('name', 'en') }}</td>
                                     <td>
-                                        <button type="button" class="process"
-                                                data-toggle="modal" data-target="#edit{{ $item->id }}" title="تعديل">
-                                           <i style="color:cadetblue; font-size:18px;" class="fa fa-edit"></i></button>
-
-                                        <button type="button" class="process"
-                                                data-toggle="modal" data-target="#delete{{ $item->id }}" title="حذف">
-                                           <i style="color:red; font-size:18px;" class="fa fa-trash"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" data-bs-toggle="modal" data-bs-target="#edit{{ $item->id }}">
+                                            <i class="fa fa-edit"></i>
+                                          </button>
+                                          <button type="button" class="btn btn-default btn-sm" data-bs-toggle="modal" data-bs-target="#delete{{ $item->id }}">
+                                            <i class="fa fa-trash"></i>
+                                          </button>
                                     </td>
                                 </tr>
 

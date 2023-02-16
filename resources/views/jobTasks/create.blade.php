@@ -45,8 +45,8 @@
     <!-- row mb-3 -->
     <div class="row mb-3">
         <div class="col-xl-12 mb-30">
-            <div class="card card-statistics h-100">
-                <div class="card-body">
+            <div class="box">
+                <div class="box-body">
                     <form action="{{ route('jobTasks.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="job_id" value="{{$job_id}}">
